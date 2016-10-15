@@ -1,14 +1,15 @@
 
 public class Employee {
-	private String firstName;
-	private char middleInitial;
-	private String lastName;
-	private String username;
-	private String password;
-	private Contact contactInformation;
-	private Contact emergencyContact;
-	private String emergencyContactName;
-	private boolean admin;
+	protected String firstName;
+	protected char middleInitial;
+	protected String lastName;
+	protected String username;
+	protected String password;
+	protected Contact contactInformation;
+	protected Contact emergencyContact;
+	protected String emergencyContactName;
+	protected boolean admin;
+	public Employee(){}
 	public Employee(String firstName, char middleInitial,String lastName, 
 			String username, String PhoneNumber, String Email, 
 			String emergencyContactName,String emergencyNumber, String emergencyEmail){

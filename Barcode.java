@@ -4,9 +4,9 @@ public class Barcode {
 	private String sectionNumber;
 	private String ItemNumber;
 	public Barcode(){
-		assignAisle();
-		assignItemNumber();
-		assignSection();		
+		assignAisle();//requires initialized database
+		assignItemNumber();//requires initialized database
+		assignSection();//requires initialized database		
 	}
 	public String getBarcode(){
 		return AisleLetter+"-"+sectionNumber+"-"+ItemNumber;
