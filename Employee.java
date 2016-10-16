@@ -83,9 +83,9 @@ public class Employee {
 	public void setEmergencyContactEmail(String newEmail){
 		emergencyContact.setEmailAddress(newEmail);
 	}
-/*	reserveStock();
-	removeBarcode();
-	assignArrivalStatus();
+	public void reserveStock(Barcode barcode);
+	public Item removeBarcode(Barcode barcode);
+/*	assignArrivalStatus();
 	assignDepartureStatus();*/
 	
 }

@@ -1,9 +1,10 @@
 
 public class Item {
 	 private Barcode itemBarcode;
+	 double itemWeight;
 	 private String expirationDate;//if null there is no expiration date
 	 private boolean reserved;
-	 public Item(Barcode itemBarcode){
+	 public Item(double weight,String expirationDate){
 		 reserved= false;
 		 this.itemBarcode=itemBarcode;
 	 }

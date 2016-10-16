@@ -16,18 +16,28 @@ public class Contact{
 		}
 		return hasMailServer;
 	}
-	private static boolean checkPhoneNumber();
+	private static boolean checkPhoneNumber(String PhoneNumber){//looking for a phone number in the form DDD-DDD-DDDD
+		if (PhoneNumber.length()!=12){
+			return false;
+		}
+		for (int i=0;i<12;i++){
+			if(!(i!=3&&i!=7&&Character.isDigit(PhoneNumber.charAt(i)))){
+				return false;
+			}
+		}
+		return true;
+	}
 	private String phoneNumber;
 	private String emailAddress;
 	public Contact(String phoneNumber, String emailAddress){
 		if (!checkEmail(emailAddress)){
-			throw
+		
 		}
 		else{
 			this.emailAddress=emailAddress;	
 		}
-		if (!checkPhoneNumber){
-			throw
+		if (!checkPhoneNumber(phoneNumber)){
+		
 		}
 		else{
 		this.phoneNumber=phoneNumber;
@@ -38,7 +48,7 @@ public class Contact{
 	}
 	public void setEmailAddress(String newEmailAddress){
 		if (!checkEmail(newEmailAddress)){
-			throw
+		
 		}
 		else{
 			emailAddress=newEmailAddress;	
@@ -49,7 +59,7 @@ public class Contact{
 	}
 	public void setPhoneNumber(String newPhoneNumber){
 		if (!checkPhoneNumber(newPhoneNumber)){
-			throw
+		throw
 		}
 		else{
 			phoneNumber=newPhoneNumber;	
