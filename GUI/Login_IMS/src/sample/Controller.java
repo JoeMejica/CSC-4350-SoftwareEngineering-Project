@@ -7,9 +7,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-public class loginController {
+public class Controller {
 
-   @FXML
+    @FXML
     private Label lblStatus;
 
     @FXML
