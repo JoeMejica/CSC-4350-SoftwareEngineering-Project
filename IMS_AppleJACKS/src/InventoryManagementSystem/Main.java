@@ -12,11 +12,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("I.M.S. | Login");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 800, 500));
 
         //kept stage dimensions static
-        primaryStage.setWidth(333.0);
-        primaryStage.setHeight(333.0);
+        primaryStage.setWidth(800.0);
+        primaryStage.setHeight(500.0);
 
         //disabled window resizing
         //primaryStage.setResizable(false);

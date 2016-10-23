@@ -7,26 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.mainMenuController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Settings" />
-                  <MenuItem mnemonicParsing="false" text="Sign-Out" />
-               </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-                  <MenuItem mnemonicParsing="false" text="Help Docs" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
    <left>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -38,9 +19,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Main Menu" wrapText="true">
+            <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="59.0" prefWidth="100.0" text="Main Menu" wrapText="true">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -49,6 +31,11 @@
             <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+            <Button fx:id="mainMenuBtn1" mnemonicParsing="false" onAction="#mainMenu" prefHeight="59.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="5">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Button>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
@@ -56,10 +43,10 @@
       </GridPane>
    </left>
    <center>
-      <GridPane prefHeight="292.0" prefWidth="461.0" BorderPane.alignment="CENTER">
+      <GridPane gridLinesVisible="true" prefHeight="292.0" prefWidth="461.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="10.0" prefWidth="375.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="125.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="10.0" prefWidth="301.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="79.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -70,22 +57,22 @@
          <children>
             <Label text="Total Inventory Count">
                <font>
-                  <Font size="19.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label text="Total Incoming Inventory" GridPane.rowIndex="1">
                <font>
-                  <Font size="19.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label text="Total Outgoing Inventory" GridPane.rowIndex="2">
                <font>
-                  <Font size="19.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label text="Total Pending Inventory (No Barcode)" GridPane.rowIndex="3">
                <font>
-                  <Font size="19.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label text="Label" textAlignment="CENTER" GridPane.columnIndex="1" />
@@ -93,6 +80,29 @@
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </GridPane>
    </center>
+   <right>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" minHeight="0.0" prefHeight="11.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="signOutIMS" mnemonicParsing="false" onAction="#signOut" prefHeight="27.0" prefWidth="95.0" text="Sign-Out" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+   </right>
 </BorderPane>

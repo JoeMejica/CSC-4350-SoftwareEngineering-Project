@@ -55,7 +55,7 @@ public class loginController {
         //load mainMenu scene
         root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,600,400);
         stage.setScene(scene);
         stage.show();
 
