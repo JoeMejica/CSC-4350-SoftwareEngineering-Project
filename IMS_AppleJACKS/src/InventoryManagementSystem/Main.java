@@ -1,4 +1,4 @@
-package sample;
+package InventoryManagementSystem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("I.M.S. | Login");
         primaryStage.setScene(new Scene(root, 300, 275));
 
@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setHeight(333.0);
 
         //disabled window resizing
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
 
         primaryStage.show();
     }

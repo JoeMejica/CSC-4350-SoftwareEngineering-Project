@@ -1,5 +1,6 @@
 .root{
-    -fx-background-image: url("http://images.newschoolers.com/images/17/00/69/43/49/694349.jpeg");
+    -fx-background-image: url("http://shushi168.com/data/out/255/37557439-white-background-wallpaper.png");
+    -fx-background-color: transparent;
 
 }
 
@@ -7,10 +8,10 @@
 .label {
     -fx-font-size:20;
     -fx-font-weight: bold;
-    -fx-background-color: gold;
+
 }
 
 .button {
     -fx-text-fill: black;
-    -fx-background-color: gold;
+
 }
