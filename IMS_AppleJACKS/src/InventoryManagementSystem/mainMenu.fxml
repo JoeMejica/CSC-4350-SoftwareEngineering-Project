@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.mainMenuController">
@@ -27,11 +26,11 @@
                   <Insets left="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Barcode" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-            <Button fx:id="mainMenuBtn1" mnemonicParsing="false" onAction="#mainMenu" prefHeight="59.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="5">
+            <Button fx:id="barcodeBtn" mnemonicParsing="false" onAction="#barcodeMenu" prefHeight="59.0" prefWidth="100.0" text="Barcode" GridPane.rowIndex="4" />
+            <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="59.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
+            <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="59.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
+            <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="59.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#settingsMenu" prefHeight="59.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="5">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -75,10 +74,10 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Label" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="totalInventoryLbl" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label fx:id="totalIncomingInventoryLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="totalOutgoingInventoryLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="totalPendingInventoryLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <BorderPane.margin>
             <Insets left="10.0" />

@@ -6,13 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class mainMenuController {
+public class settingsMenuController {
 
     @FXML
     public Button signOutIMS;
@@ -34,22 +33,6 @@ public class mainMenuController {
 
     @FXML
     public Button settingsBtn;
-
-    //Dashboard Label Counts
-
-    @FXML
-    public Label totalInventoryLbl;
-
-    @FXML
-    public Label totalIncomingInventoryLbl;
-
-    @FXML
-    public Label totalOutgoingInventoryLbl;
-
-    @FXML
-    public Label totalPendingInventoryLbl;
-
-
 
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
@@ -132,7 +115,7 @@ public class mainMenuController {
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
 
-        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+        root = FXMLLoader.load(getClass().getResource("manage.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -152,7 +135,7 @@ public class mainMenuController {
         stage.show();
     }
 
-    //DASHBOARD COUNT FUNCTIONS:
+
 
 
 
