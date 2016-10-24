@@ -6,16 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 
-public class settingsMenuController {
+public class manageUsersMenuController {
 
     @FXML
     public Button signOutIMS;
@@ -37,18 +33,6 @@ public class settingsMenuController {
 
     @FXML
     public Button settingsBtn;
-
-    @FXML
-    public Label settingsPromptLbl;
-
-    @FXML
-    public Button helpBtn;
-
-    @FXML
-    public Button manageUsersBtn;
-
-    @FXML
-    public Button aboutBtn;
 
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
@@ -131,7 +115,7 @@ public class settingsMenuController {
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
 
-        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+        root = FXMLLoader.load(getClass().getResource("manage.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -151,42 +135,8 @@ public class settingsMenuController {
         stage.show();
     }
 
-    //TODO: create and host Bootstrap site containing help documentation for IMS
-    public void helpURL(ActionEvent actionEvent) {
-
-        try {
-            Desktop.getDesktop().browse(new URI("http://lmgtfy.com/?q=help"));
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
-        }
-    }
 
 
-
-
-
-    public void manageUsersMenu(ActionEvent actionEvent) throws IOException {
-
-        //TODO: add admin boolean logic
-        //admins only have access to button, if not admin -> settingsPromptLbl.setText("Admins Only");
-
-        stage=(Stage) manageUsersBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | Manage Users Menu");
-
-        root = FXMLLoader.load(getClass().getResource("manageUsers.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void showVersionNumber(ActionEvent actionEvent) {
-        settingsPromptLbl.setText("IMS Version 1.0");
-
-    }
 
 
     //TODO: INSERT REMAINING METHODS HERE
