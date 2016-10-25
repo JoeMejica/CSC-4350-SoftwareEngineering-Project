@@ -7,7 +7,7 @@ public class ArrivalEvent {
     
     public arrivalEvent(){
         trackingNumber = null;
-        expectedArrDate = new Date();
+        expectedArrDate = new Date(0);
         statPending = true;
         statShipped = false;
         statArrived = false;
@@ -15,7 +15,7 @@ public class ArrivalEvent {
     
     public arrivalEvent(String x){
        trackingNumber = x;
-       expectedArrDate = new Date();
+       expectedArrDate = new Date(0);
        statPending = true;
        statShipped = false;
        statArrived = false;
