@@ -19,8 +19,6 @@ public class manageUsersMenuController {
     @FXML
     public Button mainMenuBtn;
 
-    @FXML
-    public Button barcodeBtn;
 
     @FXML
     public Button outgoingBtn;
@@ -68,19 +66,7 @@ public class manageUsersMenuController {
         stage.show();
     }
 
-    public void barcodeMenu(ActionEvent actionEvent) throws IOException {
 
-        stage=(Stage) barcodeBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | Barcode Menu");
-
-
-        root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
@@ -115,7 +101,7 @@ public class manageUsersMenuController {
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
 
-        root = FXMLLoader.load(getClass().getResource("manage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -135,8 +121,13 @@ public class manageUsersMenuController {
         stage.show();
     }
 
+    public void viewUserDB(ActionEvent actionEvent) {
+        System.out.println("Hello Database!");
+    }
 
-
+    public void submitForm(ActionEvent actionEvent) {
+        System.out.println("Taco Bell");
+    }
 
 
     //TODO: INSERT REMAINING METHODS HERE

@@ -115,7 +115,7 @@ public class incomingMenuController {
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
 
-        root = FXMLLoader.load(getClass().getResource("manage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
