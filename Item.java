@@ -3,6 +3,7 @@ public class Item {
 	 private Barcode itemBarcode;
 	 private double itemWeight;
 	 private String itemName;
+	 private int itemNumber;
 	 private String expirationDate;//if null there is no expiration date
 	 private boolean reserved;
 	 public Item(String name,double weight,Barcode itemBarcode,String expirationDate){//items with expiration date
@@ -11,6 +12,7 @@ public class Item {
 		 itemWeight=weight;
 		 this.expirationDate=expirationDate;
 		 itemName=name;
+		 itemNumber=itemBarcode.getItemNumberInt();
 	 }
 	 public Item(double weight,Barcode itemBarcode){
 		 reserved= false;
@@ -31,6 +33,9 @@ public class Item {
 	 }
 	 public String getItemName(){
 		 return itemName;
+	 }
+	 public int getItemNumber(){
+		 return itemNumber;
 	 }
 	 public void setExpirationDate(String Date){
 		 expirationDate=Date;

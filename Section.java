@@ -24,6 +24,13 @@ public class Section {
 	public int getNumItems(){
 		return numItems;
 	}
+	public boolean sectionFull(){
+		if(numItems<5){
+			return false;
+		}
+		else
+			return true;
+	}
 	public Item removeItem(Barcode barcode){
 		Item returnItem;
 		numItems--;
