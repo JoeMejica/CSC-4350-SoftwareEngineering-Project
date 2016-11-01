@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.outgoingMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.CreateDepartureEventController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -52,21 +52,49 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="createDepartureBtn" mnemonicParsing="false" onAction="#createDeparture" text="Create New Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="txtFieldLbl" alignment="TOP_CENTER" text="Item Database" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="itemNameCol" editable="false" prefWidth="100.0" resizable="false" text="Item" />
+                  <TableColumn fx:id="barcodeCol" editable="false" prefWidth="99.0" resizable="false" text="Barcode" />
+                  <TableColumn fx:id="weightCol" editable="false" prefWidth="100.0" resizable="false" text="Weight" />
+                  <TableColumn fx:id="reserveCol" editable="false" prefWidth="120.0" resizable="false" text="Reserved" />
+                  <TableColumn fx:id="expirationCol" editable="false" prefWidth="104.0" resizable="false" text="Expiration" />
+              </columns>
+               <GridPane.margin>
+                  <Insets top="27.0" />
+               </GridPane.margin>
+            </TableView>
+            <TextField fx:id="itemName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Item's name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label fx:id="tableName" text="Enter item's name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="22.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="createBtn" alignment="CENTER" mnemonicParsing="false" onAction="#createEvent" text="Create Departure Event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="updateDepartureBtn" mnemonicParsing="false" onAction="#updateDeparture" text="Update Departure Status" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="removeDepartureBtn" mnemonicParsing="false" onAction="#removeDeparture" text="Remove Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+            <Label fx:id="status" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="20.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
    </center>

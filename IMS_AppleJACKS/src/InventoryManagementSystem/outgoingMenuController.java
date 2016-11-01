@@ -31,6 +31,16 @@ public class outgoingMenuController {
 
     @FXML
     public Button settingsBtn;
+    
+    @FXML
+    public Button createDepartureBtn;
+    
+    @FXML
+    public Button updateDepartureBtn;
+    
+    @FXML
+    public Button removeDepartureBtn;
+  
 
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
@@ -115,6 +125,45 @@ public class outgoingMenuController {
         stage.setTitle("I.M.S. | Settings Menu");
 
         root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void createDeparture(ActionEvent actionEvent) throws IOException {
+
+        stage=(Stage) createDepartureBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Settings Menu");
+
+        root = FXMLLoader.load(getClass().getResource("createDepartureEvent.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void updateDeparture(ActionEvent actionEvent) throws IOException {
+
+        stage=(Stage) updateDepartureBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Settings Menu");
+
+        root = FXMLLoader.load(getClass().getResource("updateDepartureEvent.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void removeDeparture(ActionEvent actionEvent) throws IOException {
+
+        stage=(Stage) removeDepartureBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Settings Menu");
+
+        root = FXMLLoader.load(getClass().getResource("removeDepartureEvent.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
