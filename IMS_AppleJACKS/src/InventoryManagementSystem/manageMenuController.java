@@ -19,7 +19,6 @@ public class manageMenuController {
     @FXML
     public Button mainMenuBtn;
 
-
     @FXML
     public Button outgoingBtn;
 

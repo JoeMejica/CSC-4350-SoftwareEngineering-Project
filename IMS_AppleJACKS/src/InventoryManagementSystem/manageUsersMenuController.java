@@ -1,134 +1,342 @@
 package InventoryManagementSystem;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
+public class manageUsersMenuController implements Initializable {
 
-public class manageUsersMenuController {
+	ObservableList<String> userChoices = FXCollections.observableArrayList("Admin", "Employee");
 
-    @FXML
-    public Button signOutIMS;
+	@FXML
+	public Button signOutIMS;
 
-    @FXML
-    public Button mainMenuBtn;
+	@FXML
+	public Button mainMenuBtn;
 
+	@FXML
+	public Button outgoingBtn;
 
-    @FXML
-    public Button outgoingBtn;
+	@FXML
+	public Button incomingBtn;
 
-    @FXML
-    public Button incomingBtn;
+	@FXML
+	public Button manageBtn;
 
-    @FXML
-    public Button manageBtn;
+	@FXML
+	public Button settingsBtn;
 
-    @FXML
-    public Button settingsBtn;
+	@FXML
+	public Button viewAllUsersBtn;
 
+	@FXML
+	public Button submitFormBtn;
 
-    //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
+	@FXML
+	public ComboBox<String> userTypeCBox;
 
-    Stage stage;
-    Parent root;
+	@FXML
+	public TextField firstNameField;
 
+	@FXML
+	public TextField middleInitialField;
 
-    public void signOut(ActionEvent actionEvent) throws IOException {
+	@FXML
+	public TextField lastNameField;
 
-        stage=(Stage) signOutIMS.getScene().getWindow();
+	@FXML
+	public TextField usernameField;
 
-        stage.setTitle("I.M.S. | Login");
+	@FXML
+	public PasswordField passwordField;
 
-        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+	@FXML
+	public TextField contactNumberField;
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+	@FXML
+	public TextField emailField;
 
-    }
+	@FXML
+	public TextField emergencyContactField;
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+	@FXML
+	public TextField emergencyNumberField;
 
-        stage=(Stage) mainMenuBtn.getScene().getWindow();
+	@FXML
+	public TextField emergencyEmailField;
 
-        stage.setTitle("I.M.S. | Main Menu");
+	@FXML
+	public Label status;
 
-        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+	@FXML
+	public Label userLbl;
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+	@FXML
+	public Label phoneLbl;
 
+	@FXML
+	public Label emailLbl;
 
+	@FXML
+	public Label contactPhoneLbl;
 
-    public void outgoingMenu(ActionEvent actionEvent) throws IOException {
+	@FXML
+	public Label contactEmailLbl;
 
-        stage=(Stage) outgoingBtn.getScene().getWindow();
+	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
-        stage.setTitle("I.M.S. | Outgoing Shipments Menu");
+	Stage stage;
+	Parent root;
+	Connection conn = SQLiteConnection.Connector();
+	PreparedStatement ps = null;
+	ResultSet rs = null;
 
-        root = FXMLLoader.load(getClass().getResource("outgoing.fxml"));
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		userTypeCBox.setItems(userChoices);
+		userTypeCBox.setValue("Employee");
+	}
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+	public void submitForm(ActionEvent actionEvent) {
+		Employee hire = new Employee();
+		Contact confirm;
+		Contact confirmEmergency;
+		String compareX = null;
+		String compareY = null;
+		String check = userTypeCBox.getSelectionModel().getSelectedItem();
+		boolean level = false;
+		if (check == "Admin") {
+			level = true;
+		}
+		String x = "";
+		if (!(firstNameField.getText().equals(x))) {
+			if (lastNameField.getText().equals(x)) {
+				if (usernameField.getText().equals(x)) {
+					if (passwordField.getText().equals(x)) {
+						if (emergencyContactField.getText().equals(x)) {
+							hire.setAdmin(level);
+							hire.setFirstName(firstNameField.getText());
+							hire.setMiddleInitial(middleInitialField.getText());
+							hire.setLastName(lastNameField.getText());
+							hire.setUsername(usernameField.getText());
+							hire.setPassword(passwordField.getText());
+							hire.setEmergencyContactName(emergencyContactField.getText());
+							confirm = new Contact(contactNumberField.getText(), emailField.getText());
+							confirmEmergency = new Contact(emergencyNumberField.getText(),
+									emergencyEmailField.getText());
+							compareX = confirm.getEmailAddress();
+							compareY = emailField.getText();
+							if (compareX.equals(compareY)) {
+								compareX = confirm.getPhoneNumber();
+								compareY = contactNumberField.getText();
+								System.out.println(compareX);
+								System.out.println(compareY);
+								System.out.println("email good");
+								emailLbl.setText(null);
+								if (compareX.equals(compareY)) {
+									compareX = confirmEmergency.getEmailAddress();
+									compareY = emergencyEmailField.getText();
+									System.out.println("phone good");
+									phoneLbl.setText(null);
+									if (compareX.equals(compareY)) {
+										compareX = confirmEmergency.getPhoneNumber();
+										compareY = emergencyNumberField.getText();
+										System.out.println("emer email good");
+										contactPhoneLbl.setText(null);
+										if (compareX.equals(compareY)) {
+											System.out.println("emer phone good");
+											contactEmailLbl.setText(null);
+											String query = "SELECT * FROM employee WHERE username = ?";
+											try {
+												ps = conn.prepareStatement(query);
+												ps.setString(1, hire.getUsername());
+												rs = ps.executeQuery();
+												System.out.println("Check username good");
+												if (rs.next()) {
+													userLbl.setText("Username exists!");
+												} else {
+													userLbl.setText(null);
+													query = "SELECT * FROM employee WHERE email = ?";
+													ps = conn.prepareStatement(query);
+													ps.setString(1, emailField.getText());
+													rs = ps.executeQuery();
+													System.out.println("Check email good");
+													if (rs.next()) {
+														emailLbl.setText("Email exists!");
+													} else {
+														emailLbl.setText(null);
+														query = "INSERT INTO employee (firstname, middleinitial, lastname, username, password, phonenumber, email, admin, contactname, contactnumber, contactemail)"
+																+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+														ps = conn.prepareStatement(query);
+														ps.setString(1, hire.getFirstName());
+														ps.setString(2, hire.getMiddleInitial());
+														ps.setString(3, hire.getLastName());
+														ps.setString(4, hire.getUsername());
+														ps.setString(5, hire.getPassword());
+														ps.setString(6, contactNumberField.getText());
+														ps.setString(7, emailField.getText());
+														ps.setBoolean(8, hire.getAdmin());
+														ps.setString(9, hire.getEmergencyContactName());
+														ps.setString(10, emergencyNumberField.getText());
+														ps.setString(11, emergencyEmailField.getText());
+														ps.executeUpdate();
+														conn.close();
+														firstNameField.clear();
+														middleInitialField.clear();
+														lastNameField.clear();
+														usernameField.clear();
+														passwordField.clear();
+														contactNumberField.clear();
+														emailField.clear();
+														emergencyContactField.clear();
+														emergencyEmailField.clear();
+														emergencyNumberField.clear();
 
-    public void incomingMenu(ActionEvent actionEvent) throws IOException {
+														status.setText("New user created!");
+													}
+												}
+											} catch (SQLException e) {
+												e.printStackTrace();
+											}
+										} else {
+											contactPhoneLbl.setText("Incorrect!");
+										}
+									} else {
+										contactEmailLbl.setText("Incorrect!");
+									}
+								} else {
+									phoneLbl.setText("Incorrect!");
+								}
+							} else {
+								emailLbl.setText("Incorrect!");
+							}
+						} else {
+							status.setText("Empty field!");
+						}
+					} else {
+						status.setText("Empty field!");
+					}
+				} else {
+					status.setText("Empty field!");
+				}
+			} else {
+				status.setText("Empty field!");
+			}
+		} else {
+			status.setText("Empty field!");
+		}
+	}
 
-        stage=(Stage) incomingBtn.getScene().getWindow();
+	public void viewUserDB(ActionEvent actionEvent) throws IOException {
+		stage = (Stage) signOutIMS.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Incoming Shipments Menu");
+		stage.setTitle("I.M.S. | View User Menu");
 
-        root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
+		root = FXMLLoader.load(getClass().getResource("users.fxml"));
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-    }
+	public void signOut(ActionEvent actionEvent) throws IOException {
 
-    public void manageMenu(ActionEvent actionEvent) throws IOException {
+		stage = (Stage) signOutIMS.getScene().getWindow();
 
-        stage=(Stage) manageBtn.getScene().getWindow();
+		stage.setTitle("I.M.S. | Login");
 
-        stage.setTitle("I.M.S. | Manage Inventory Menu");
+		root = FXMLLoader.load(getClass().getResource("login.fxml"));
 
-        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+	}
 
-    public void settingsMenu(ActionEvent actionEvent) throws IOException {
+	public void mainMenu(ActionEvent actionEvent) throws IOException {
 
-        stage=(Stage) settingsBtn.getScene().getWindow();
+		stage = (Stage) mainMenuBtn.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Settings Menu");
+		stage.setTitle("I.M.S. | Main Menu");
 
-        root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+		root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-    public void viewUserDB(ActionEvent actionEvent) {
-        System.out.println("Hello Database!");
-    }
+	public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
-    public void submitForm(ActionEvent actionEvent) {
-        System.out.println("Taco Bell");
-    }
+		stage = (Stage) outgoingBtn.getScene().getWindow();
 
+		stage.setTitle("I.M.S. | Outgoing Shipments Menu");
 
-    //TODO: INSERT REMAINING METHODS HERE
+		root = FXMLLoader.load(getClass().getResource("outgoing.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void incomingMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) incomingBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Incoming Shipments Menu");
+
+		root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
+	}
+
+	public void manageMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) manageBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Manage Inventory Menu");
+
+		root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void settingsMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) settingsBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Settings Menu");
+
+		root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	// TODO: INSERT REMAINING METHODS HERE
 }

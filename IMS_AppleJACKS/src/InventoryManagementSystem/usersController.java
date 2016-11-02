@@ -17,103 +17,95 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class RemoveDepartureEventController implements Initializable {
+public class usersController implements Initializable {
 
 	@FXML
-	private TableView<DepartureItemTable> table;
+	private TableView<UserTable> table;
 
 	@FXML
-	private TableColumn<DepartureItemTable, String> itemNameCol;
+	private TableColumn<UserTable, String> firstNameCol;
 
 	@FXML
-	private TableColumn<DepartureItemTable, String> barcodeCol;
+	private TableColumn<UserTable, String> middleInitCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> lastNameCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> phoneCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> emailCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> contactNameCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> contactEmailCol;
 
 	@FXML
-	private TableColumn<DepartureItemTable, Boolean> shippedCol;
+	private TableColumn<UserTable, String> contactNumCol;
 
 	@FXML
-	private Button signOutIMS;
+	public Button signOutIMS;
 
 	@FXML
-	private Button mainMenuBtn;
+	public Button mainMenuBtn;
 
 	@FXML
-	private Button outgoingBtn;
+	public Button outgoingBtn;
 
 	@FXML
-	private Button incomingBtn;
+	public Button incomingBtn;
 
 	@FXML
-	private Button manageBtn;
+	public Button manageBtn;
 
 	@FXML
-	private Button settingsBtn;
-
-	@FXML
-	private Button removeBtn;
-
-	@FXML
-	private TextField barcode;
-
-	@FXML
-	private Label status;
+	public Button settingsBtn;
 
 	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<DepartureItemTable> list = FXCollections.observableArrayList();
+	ObservableList<UserTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("itemName"));
-		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("barcode"));
-		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("shipped"));
-		loadShippedItems();
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		firstNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("firstName"));
+		middleInitCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("middleInit"));
+		lastNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("lastName"));
+		phoneCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("phoneNumber"));
+		emailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("email"));
+		contactNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactName"));
+		contactEmailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactEmail"));
+		contactNumCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactNumber"));
+		loadUsers();
 	}
-
-	public void removeEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(barcode.getText())) {
-			String query = "DELETE FROM departures WHERE barcode = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, barcode.getText());
-			ps.executeUpdate();
-			query = "UPDATE items SET reserved = ? WHERE barcode = ?";
-			ps = conn.prepareStatement(query);
-			ps.setBoolean(1, false);
-			ps.setString(2, barcode.getText());
-			ps.executeUpdate();
-			status.setText("Departure event successfully removed!");
-			list.removeAll(list);
-			loadShippedItems();
-			barcode.clear();
-		} else {
-			status.setText("Barcode not found!");
-		}
-	}
-
-	public void loadShippedItems() {
-		departEvent.createDepartureTable();
+	
+	public void loadUsers() {
 		try {
-			String query = "SELECT * FROM departures WHERE shipped = ?";
-			ps = conn.prepareStatement(query);
-			ps.setBoolean(1, true);
+			String query = "SELECT * FROM employee";
+			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new DepartureItemTable(rs.getString("itemname"), rs.getString("barcode"),
-						rs.getBoolean("reserved"), rs.getBoolean("pending"), rs.getBoolean("ready"),
-						rs.getBoolean("shipped")));
+				list.add(new UserTable(rs.getString("firstname"),
+						rs.getString("middleinitial"),
+						rs.getString("lastname"),
+						rs.getString("phonenumber"),
+						rs.getString("email"),
+						rs.getString("contactname"),
+						rs.getString("contactnumber"),
+						rs.getString("contactemail")));
 				table.setItems(list);
 			}
 			ps.close();
@@ -202,5 +194,7 @@ public class RemoveDepartureEventController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	// TODO: INSERT REMAINING METHODS HERE
 
 }

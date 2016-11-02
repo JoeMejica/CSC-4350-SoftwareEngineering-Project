@@ -44,14 +44,18 @@
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="134.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="196.0" />
+          <ColumnConstraints maxWidth="-Infinity" minWidth="10.0" prefWidth="360.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="131.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -66,28 +70,91 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Label>
-            <Label text="User Type" GridPane.rowIndex="1" />
-            <Label text="First Name" GridPane.rowIndex="2" />
-            <Label text="Middle Initial" GridPane.rowIndex="3" />
-            <Label text="Last Name" GridPane.rowIndex="4" />
-            <Label text="Username" GridPane.rowIndex="5" />
-            <Label text="Password" GridPane.rowIndex="6" />
-            <Label text="Emergeny Contact " GridPane.rowIndex="7" />
-            <Label text="Contact #" GridPane.rowIndex="8" />
-            <ComboBox fx:id="userTypeCBox" prefHeight="27.0" prefWidth="193.0" promptText="Admin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="middleInitialField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="emergencyContactField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="contactNumberField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button fx:id="viewAllUsersBtn" mnemonicParsing="false" onAction="#viewUserDB" text="View User Database" GridPane.columnIndex="2" GridPane.rowIndex="9">
+            <Label prefWidth="160.0" text="User Type" GridPane.rowIndex="1">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="First Name" GridPane.rowIndex="2">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="Middle Initial" GridPane.rowIndex="3">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="Last Name" GridPane.rowIndex="4">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="Username" GridPane.rowIndex="7">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="Password" GridPane.rowIndex="8">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="300.0" text="Emergeny Contact " GridPane.rowIndex="9">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label maxWidth="-Infinity" prefWidth="300.0" text="Emergency Contact #" GridPane.rowIndex="11">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <ComboBox fx:id="userTypeCBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="firstNameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="middleInitialField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="lastNameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="contactNumberField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="emergencyContactField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="emergencyEmailField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="emergencyNumberField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Button fx:id="viewAllUsersBtn" mnemonicParsing="false" onAction="#viewUserDB" text="View User Database" GridPane.columnIndex="2" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="submitFormBtn" mnemonicParsing="false" onAction="#submitForm" text="Submit Form" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Button fx:id="submitFormBtn" mnemonicParsing="false" onAction="#submitForm" text="Submit Form" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <Label prefWidth="160.0" text="Email Address" GridPane.rowIndex="6">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label prefWidth="160.0" text="Phone #" GridPane.rowIndex="5">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label maxWidth="-Infinity" prefWidth="600.0" text="Emergency Contact Email Address" GridPane.rowIndex="10">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="phoneLbl" maxWidth="-Infinity" prefWidth="260.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="emailLbl" maxWidth="-Infinity" prefWidth="260.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="userLbl" maxWidth="-Infinity" prefWidth="260.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="contactEmailLbl" maxWidth="-Infinity" prefWidth="260.0" GridPane.columnIndex="2" GridPane.rowIndex="10">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="contactPhoneLbl" maxWidth="-Infinity" prefWidth="260.0" GridPane.columnIndex="2" GridPane.rowIndex="11">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
+            <Label fx:id="status" maxWidth="-Infinity" prefWidth="300.0" GridPane.rowIndex="12">
+               <font>
+                  <Font size="9.0" />
+               </font></Label>
          </children>
       </GridPane>
    </center>

@@ -57,10 +57,10 @@ public class loginController {
 
 				
 			} else {
-				 lblStatus.setText("Incorrect Password!");
+				 lblStatus.setText("Incorrect Password or Username!");
 			}
 		} catch (SQLException e) {
-			 lblStatus.setText("Incorrect Password!");
+			 lblStatus.setText("Incorrect Password or Username!");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

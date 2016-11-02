@@ -32,6 +32,6 @@
             </font>
         </TextField>
         <Button fx:id="loginIssueBtn" layoutX="120.0" layoutY="255.0" mnemonicParsing="false" text="login issues?" />
-      <Label layoutX="65.0" layoutY="55.0" text="Username: admin  Password: password" />
+      <Label layoutX="65.0" layoutY="55.0" text="Username: admin  Password: admin" />
     </children>
 </AnchorPane>

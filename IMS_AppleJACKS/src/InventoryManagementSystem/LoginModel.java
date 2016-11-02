@@ -49,4 +49,28 @@ public class LoginModel {
 		}
 	}
 	
+	public boolean isAdmin(String username, String password) throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		boolean check = false;
+		String query = "SELECT * FROM employee WHERE username = ? AND password = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				check = rset.getBoolean("admin");
+				return check;
+			} else {
+				return check;
+			}
+		} catch (Exception e) {
+			return false;
+		} finally {
+			pstmt.close();
+			rset.close();
+		}
+	}
+	
 }

@@ -19,7 +19,6 @@ public class outgoingMenuController {
     @FXML
     public Button mainMenuBtn;
 
-
     @FXML
     public Button outgoingBtn;
 
@@ -40,14 +39,11 @@ public class outgoingMenuController {
     
     @FXML
     public Button removeDepartureBtn;
-  
-
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
     Stage stage;
     Parent root;
-
 
     public void signOut(ActionEvent actionEvent) throws IOException {
 
@@ -75,8 +71,6 @@ public class outgoingMenuController {
         stage.setScene(scene);
         stage.show();
     }
-
-
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
@@ -135,7 +129,7 @@ public class outgoingMenuController {
 
         stage=(Stage) createDepartureBtn.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Settings Menu");
+        stage.setTitle("I.M.S. | Create Departure Event Menu");
 
         root = FXMLLoader.load(getClass().getResource("createDepartureEvent.fxml"));
 
@@ -148,7 +142,7 @@ public class outgoingMenuController {
 
         stage=(Stage) updateDepartureBtn.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Settings Menu");
+        stage.setTitle("I.M.S. | Update Departure Event Menu");
 
         root = FXMLLoader.load(getClass().getResource("updateDepartureEvent.fxml"));
 
@@ -161,7 +155,7 @@ public class outgoingMenuController {
 
         stage=(Stage) removeDepartureBtn.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Settings Menu");
+        stage.setTitle("I.M.S. | Remove Departure Event Menu");
 
         root = FXMLLoader.load(getClass().getResource("removeDepartureEvent.fxml"));
 
@@ -169,10 +163,6 @@ public class outgoingMenuController {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
-
 
     //TODO: INSERT REMAINING METHODS HERE
 }
