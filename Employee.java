@@ -1,7 +1,8 @@
+package InventoryManagementSystem;
 
 public class Employee {
 	protected String firstName;
-	protected char middleInitial;
+	protected String middleInitial;
 	protected String lastName;
 	protected String username;
 	protected String password;
@@ -9,83 +10,112 @@ public class Employee {
 	protected Contact emergencyContact;
 	protected String emergencyContactName;
 	protected boolean admin;
-	public Employee(){}
-	public Employee(String firstName, char middleInitial,String lastName, 
-			String username, String PhoneNumber, String Email, 
-			String emergencyContactName,String emergencyNumber, String emergencyEmail){
-		this.firstName=firstName;
-		this.middleInitial=middleInitial;
-		this.lastName=lastName;
-		this.username=username;
-		password= "tempPass";
-		contactInformation= new Contact(PhoneNumber,Email);
-		emergencyContact=new Contact(emergencyNumber,emergencyEmail);
-		this.emergencyContactName=emergencyContactName;
-		admin=false;
+
+	public Employee() {
 	}
-	public String getFirstName(){
+
+	public Employee(String firstName, String middleInitial, String lastName, String username, String PhoneNumber,
+			String Email, String emergencyContactName, String emergencyNumber, String emergencyEmail) {
+		this.firstName = firstName;
+		this.middleInitial = middleInitial;
+		this.lastName = lastName;
+		this.username = username;
+		password = "tempPass";
+		contactInformation = new Contact(PhoneNumber, Email);
+		emergencyContact = new Contact(emergencyNumber, emergencyEmail);
+		this.emergencyContactName = emergencyContactName;
+		admin = false;
+	}
+
+	public String getFirstName() {
 		return firstName;
 	}
-	public char getMiddleInitial(){
+
+	public String getMiddleInitial() {
 		return middleInitial;
 	}
-	public String getLastName(){
+
+	public String getLastName() {
 		return lastName;
 	}
-	public String getUsername(){
+
+	public String getUsername() {
 		return username;
 	}
-	public String getPassword(){
+
+	public String getPassword() {
 		return password;
 	}
-	public String getEmail(){
+
+	public String getEmail() {
 		return contactInformation.getEmailAddress();
 	}
-	public String getPhoneNumber(){
+
+	public String getPhoneNumber() {
 		return contactInformation.getPhoneNumber();
 	}
-	public String getEmergencyContactName(){
+
+	public String getEmergencyContactName() {
 		return emergencyContactName;
 	}
-	public String getEmergencyContactNumber(){
+
+	public String getEmergencyContactNumber() {
 		return emergencyContact.getPhoneNumber();
 	}
-	public String getEmergencyContactEmail(){
+
+	public String getEmergencyContactEmail() {
 		return emergencyContact.getEmailAddress();
 	}
-	public boolean getAdmin(){
+
+	public boolean getAdmin() {
 		return admin;
 	}
-	public void setFirstName(String newName){
-		firstName=newName;
+
+	public void setAdmin(Boolean userType) {
+		admin = userType;
 	}
-	public void setMiddleInitial(char newInitial){
-		middleInitial=newInitial;
+
+	public void setFirstName(String newName) {
+		firstName = newName;
 	}
-	public void setLastName(String newLastName){
-		lastName=newLastName;
+
+	public void setMiddleInitial(String newMiddle) {
+		middleInitial = newMiddle;
 	}
-	public void setPassword(String newPass){
-		password=newPass;
+
+	public void setLastName(String newLastName) {
+		lastName = newLastName;
 	}
-	public void setEmail(String newEmail){
+
+	public void setUsername(String newUser) {
+		username = newUser;
+	}
+
+	public void setPassword(String newPass) {
+		password = newPass;
+	}
+
+	public void setEmail(String newEmail) {
 		contactInformation.setEmailAddress(newEmail);
 	}
-	public void setPhoneNumber(String newNumber){
+
+	public void setPhoneNumber(String newNumber) {
 		contactInformation.setPhoneNumber(newNumber);
 	}
-	public void setEmergencyContactName(String newName){
-		emergencyContactName=newName;
+
+	public void setEmergencyContactName(String newName) {
+		emergencyContactName = newName;
 	}
-	public void setEmergencyContactNumber(String newNumber){
+
+	public void setEmergencyContactNumber(String newNumber) {
 		emergencyContact.setPhoneNumber(newNumber);
 	}
-	public void setEmergencyContactEmail(String newEmail){
+
+	public void setEmergencyContactEmail(String newEmail) {
 		emergencyContact.setEmailAddress(newEmail);
 	}
-	public void reserveStock(Barcode barcode);
-	public Item removeBarcode(Barcode barcode);
-/*	assignArrivalStatus();
-	assignDepartureStatus();*/
-	
+	/*
+	 * assignArrivalStatus(); assignDepartureStatus();
+	 */
+
 }
