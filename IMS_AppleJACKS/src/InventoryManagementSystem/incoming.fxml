@@ -41,4 +41,7 @@
             </padding>
         </GridPane>
     </left>
+   <center>
+      <Button fx:id="barcodeBtn" mnemonicParsing="false" onAction="#barcodeMenu" prefHeight="143.0" prefWidth="203.0" text="Barcode Temporary Location" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

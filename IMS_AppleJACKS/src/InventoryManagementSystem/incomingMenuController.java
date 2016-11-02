@@ -20,13 +20,13 @@ public class incomingMenuController {
     public Button mainMenuBtn;
 
     @FXML
-    public Button barcodeBtn;
-
-    @FXML
     public Button outgoingBtn;
 
     @FXML
     public Button incomingBtn;
+    
+    @FXML
+    public Button barcodeBtn;
 
     @FXML
     public Button manageBtn;
@@ -68,19 +68,7 @@ public class incomingMenuController {
         stage.show();
     }
 
-    public void barcodeMenu(ActionEvent actionEvent) throws IOException {
 
-        stage=(Stage) barcodeBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | Barcode Menu");
-
-
-        root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
@@ -107,6 +95,19 @@ public class incomingMenuController {
         stage.setScene(scene);
         stage.show();
 
+    }
+    
+    public void barcodeMenu(ActionEvent actionEvent) throws IOException {
+
+        stage=(Stage) settingsBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Settings Menu");
+
+        root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void manageMenu(ActionEvent actionEvent) throws IOException {

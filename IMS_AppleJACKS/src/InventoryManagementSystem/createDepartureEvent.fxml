@@ -52,7 +52,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="txtFieldLbl" alignment="TOP_CENTER" text="Item Database" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="txtFieldLbl" alignment="TOP_CENTER" text="Items" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="18.0" />
                </font>
@@ -66,18 +66,18 @@
                   <TableColumn fx:id="barcodeCol" editable="false" prefWidth="99.0" resizable="false" text="Barcode" />
                   <TableColumn fx:id="weightCol" editable="false" prefWidth="100.0" resizable="false" text="Weight" />
                   <TableColumn fx:id="reserveCol" editable="false" prefWidth="120.0" resizable="false" text="Reserved" />
-                  <TableColumn fx:id="expirationCol" editable="false" prefWidth="104.0" resizable="false" text="Expiration" />
+                  <TableColumn fx:id="expirationCol" editable="false" prefWidth="150.0" resizable="false" text="Expiration" />
               </columns>
                <GridPane.margin>
                   <Insets top="27.0" />
                </GridPane.margin>
             </TableView>
-            <TextField fx:id="itemName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Item's name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <TextField fx:id="barcode" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Barcode" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Label fx:id="tableName" text="Enter item's name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label fx:id="tableName" text="Enter item's barcode" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="22.0" />
                </GridPane.margin>
@@ -85,12 +85,15 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="createBtn" alignment="CENTER" mnemonicParsing="false" onAction="#createEvent" text="Create Departure Event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="createBtn" alignment="CENTER" mnemonicParsing="false" onAction="#createEvent" prefHeight="75.0" prefWidth="216.0" text="Create Departure Event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
             </Button>
-            <Label fx:id="status" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Label fx:id="status" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets bottom="20.0" />
                </GridPane.margin>

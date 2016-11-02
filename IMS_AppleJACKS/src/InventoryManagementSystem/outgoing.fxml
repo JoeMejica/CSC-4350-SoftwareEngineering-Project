@@ -52,17 +52,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="createDepartureBtn" mnemonicParsing="false" onAction="#createDeparture" text="Create New Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button fx:id="createDepartureBtn" mnemonicParsing="false" onAction="#createDeparture" prefHeight="75.0" prefWidth="200.0" text="Create New Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="updateDepartureBtn" mnemonicParsing="false" onAction="#updateDeparture" text="Update Departure Status" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button fx:id="updateDepartureBtn" mnemonicParsing="false" onAction="#updateDeparture" prefHeight="75.0" prefWidth="200.0" text="Update Departure Status" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="removeDepartureBtn" mnemonicParsing="false" onAction="#removeDeparture" text="Remove Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="removeDepartureBtn" mnemonicParsing="false" onAction="#removeDeparture" prefHeight="75.0" prefWidth="200.0" text="Remove Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>

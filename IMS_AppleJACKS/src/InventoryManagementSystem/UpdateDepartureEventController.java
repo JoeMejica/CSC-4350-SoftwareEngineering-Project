@@ -27,25 +27,25 @@ import javafx.stage.Stage;
 public class UpdateDepartureEventController implements Initializable {
 
 	@FXML
-	private TableView<DepartureItem> table;
+	private TableView<DepartureItemTable> table;
 
 	@FXML
-	private TableColumn<DepartureItem, String> itemNameCol;
+	private TableColumn<DepartureItemTable, String> itemNameCol;
 	
 	@FXML
-	private TableColumn<DepartureItem, String> barcodeCol;
+	private TableColumn<DepartureItemTable, String> barcodeCol;
 
 	@FXML
-	private TableColumn<DepartureItem, Boolean> reserveCol;
+	private TableColumn<DepartureItemTable, Boolean> reserveCol;
 
 	@FXML
-	private TableColumn<DepartureItem, Boolean> pendingCol;
+	private TableColumn<DepartureItemTable, Boolean> pendingCol;
 
 	@FXML
-	private TableColumn<DepartureItem, Boolean> readyCol;
+	private TableColumn<DepartureItemTable, Boolean> readyCol;
 
 	@FXML
-	private TableColumn<DepartureItem, Boolean> shippedCol;
+	private TableColumn<DepartureItemTable, Boolean> shippedCol;
 
 	@FXML
 	private Button signOutIMS;
@@ -75,7 +75,7 @@ public class UpdateDepartureEventController implements Initializable {
 	private Button shippedBtn;
 
 	@FXML
-	private TextField itemName;
+	private TextField barcode;
 
 	@FXML
 	private Label status;
@@ -91,62 +91,66 @@ public class UpdateDepartureEventController implements Initializable {
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<DepartureItem> list = FXCollections.observableArrayList();
+	ObservableList<DepartureItemTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, String>("itemName"));
-		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, String>("barcode"));
-		reserveCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, Boolean>("reserved"));
-		pendingCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, Boolean>("pending"));
-		readyCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, Boolean>("ready"));
-		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItem, Boolean>("shipped"));
+		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("barcode"));
+		reserveCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("reserved"));
+		pendingCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("pending"));
+		readyCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("ready"));
+		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("shipped"));
 		loadDepartureItems();
 	}
 
 	public void pendingEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(itemName.getText())) {
-			departEvent.pendingEvent(itemName.getText());
+		if (departEvent.isDepartItem(barcode.getText())) {
+			departEvent.pendingEvent(barcode.getText());
 			status.setText("Update pending status successful!");
 			list.removeAll(list);
 			loadDepartureItems();
+			barcode.clear();
 		} else {
-			status.setText("Item not found!");
+			status.setText("Barcode not found!");
 		}
 	}
 
 	public void readyEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(itemName.getText())) {
-			departEvent.readyEvent(itemName.getText());
+		if (departEvent.isDepartItem(barcode.getText())) {
+			departEvent.readyEvent(barcode.getText());
 			status.setText("Update ready status successful!");
 			list.removeAll(list);
 			loadDepartureItems();
+			barcode.clear();
 		} else {
-			status.setText("Item not found!");
+			status.setText("Barcode not found!");
 		}
 	}
 
 	public void shippedEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(itemName.getText())) {
-			departEvent.shippedEvent(itemName.getText());
+		if (departEvent.isDepartItem(barcode.getText())) {
+			departEvent.shippedEvent(barcode.getText());
 			status.setText("Update shipped status successful!");
 			list.removeAll(list);
 			loadDepartureItems();
+			barcode.clear();
 		} else {
-			status.setText("Item not found!");
+			status.setText("Barcode not found!");
 		}
 	}
 
 	public void loadDepartureItems() {
+		departEvent.createDepartureTable();
 		try {
 			String query = "SELECT * FROM departures";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new DepartureItem(rs.getString("itemname"), rs.getString("barcode"), rs.getBoolean("reserved"),
+				list.add(new DepartureItemTable(rs.getString("itemname"), rs.getString("barcode"), rs.getBoolean("reserved"),
 						rs.getBoolean("pending"), rs.getBoolean("ready"), rs.getBoolean("shipped")));
 				table.setItems(list);
 			}

@@ -27,22 +27,22 @@ import javafx.stage.Stage;
 public class CreateDepartureEventController implements Initializable {
 
 	@FXML
-	private TableView<ItemTemp> table;
+	private TableView<ItemTable> table;
 
 	@FXML
-	private TableColumn<ItemTemp, String> itemNameCol;
+	private TableColumn<ItemTable, String> itemNameCol;
 
 	@FXML
-	private TableColumn<ItemTemp, String> barcodeCol;
+	private TableColumn<ItemTable, String> barcodeCol;
 
 	@FXML
-	private TableColumn<ItemTemp, Double> weightCol;
+	private TableColumn<ItemTable, Double> weightCol;
 
 	@FXML
-	private TableColumn<ItemTemp, Boolean> reserveCol;
+	private TableColumn<ItemTable, Boolean> reserveCol;
 
 	@FXML
-	private TableColumn<ItemTemp, String> expirationCol;
+	private TableColumn<ItemTable, String> expirationCol;
 
 	@FXML
 	private Button signOutIMS;
@@ -66,7 +66,7 @@ public class CreateDepartureEventController implements Initializable {
 	private Button createBtn;
 
 	@FXML
-	private TextField itemName;
+	private TextField barcode;
 
 	@FXML
 	private Label status;
@@ -82,39 +82,68 @@ public class CreateDepartureEventController implements Initializable {
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<ItemTemp> list = FXCollections.observableArrayList();
+	ObservableList<ItemTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<ItemTemp, String>("itemName"));
-		barcodeCol.setCellValueFactory(new PropertyValueFactory<ItemTemp, String>("barcode"));
-		weightCol.setCellValueFactory(new PropertyValueFactory<ItemTemp, Double>("weight"));
-		reserveCol.setCellValueFactory(new PropertyValueFactory<ItemTemp, Boolean>("reserved"));
-		expirationCol.setCellValueFactory(new PropertyValueFactory<ItemTemp, String>("expiration"));
+		itemNameCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("barcode"));
+		weightCol.setCellValueFactory(new PropertyValueFactory<ItemTable, Double>("weight"));
+		reserveCol.setCellValueFactory(new PropertyValueFactory<ItemTable, Boolean>("reserved"));
+		expirationCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("expiration"));
 		loadItems();
 	}
 
 	public void createEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isItem(itemName.getText())) {
-			departEvent.createDepartureEvent(itemName.getText());
-			status.setText("Departure event successfully created!");
-			list.removeAll(list);
-			loadItems();
+		if (departEvent.isBarcode(barcode.getText())) {
+			departEvent.createDepartureTable();
+			String query = "SELECT * FROM departures WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode.getText());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				status.setText("Departure event exists!");
+			} else {
+				String name = null;
+				query = "SELECT * FROM items WHERE barcode = ?";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, barcode.getText());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					name = rs.getString("itemname");
+				}
+				departEvent.createDepartureEvent(name, barcode.getText());
+				status.setText("Departure event successfully created!");
+				list.removeAll(list);
+				loadItems();
+				barcode.clear();
+			}
 		} else {
-			status.setText("Item not found!");
+			status.setText("Barcode not found!");
+		}
+	}
+
+	public void createItemTable() {
+		String query = "CREATE  TABLE  IF NOT EXISTS \"main\".\"items\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"itemname\" TEXT, \"barcode\" TEXT UNIQUE , \"weight\" DOUBLE, \"expiration\" DATETIME, \"reserved\" BOOL DEFAULT 0)";
+		try {
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public void loadItems() {
+		createItemTable();
 		try {
-			String query = "SELECT * FROM items";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
+			String query = "SELECT * FROM items WHERE barcode IS NOT NULL";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new ItemTemp(rs.getString("itemname"), rs.getString("barcode"), rs.getDouble("weight"),
+				list.add(new ItemTable(rs.getString("itemname"), rs.getString("barcode"), rs.getDouble("weight"),
 						rs.getBoolean("reserved"), rs.getString("expiration")));
 				table.setItems(list);
 			}
