@@ -1,4 +1,4 @@
-package InventoryManagementSystem;
+package Model;
 
 public class Contact {
 	private static boolean checkEmail(String email) {// checks for valid emails

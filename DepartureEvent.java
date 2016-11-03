@@ -1,12 +1,14 @@
-package InventoryManagementSystem;
+package Model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import InventoryManagementSystem.SQLiteConnection;
+
 public class DepartureEvent {
-	Connection conn;
+	Connection conn = SQLiteConnection.Connector();
 	private boolean reserved;
 	private boolean pending;
 	private boolean ready;
@@ -17,28 +19,24 @@ public class DepartureEvent {
 
 	public DepartureEvent(String itemName) {
 		this.itemName = itemName;
-//		barcode = null;
 		reserved = true;
 		pending = false;
 		ready = false;
 		shipped = false;
 	}
-
-	public DepartureEvent() {
-		conn = SQLiteConnection.Connector();
-		if (conn == null) {
-			System.out.println("Connection not successful");
-			System.exit(1);
-		}
+	
+	public DepartureEvent(){
 	}
 
-//	public String getBarcode(){
-//		return barcode;
+//	public DepartureEvent() {
+//		conn = SQLiteConnection.Connector();
+//		if (conn == null) {
+//			System.out.println("Connection not successful");
+//			System.exit(1);
+//		}
 //	}
-//	
-//	public void setBarcode(String barcode){
-//		this.barcode = barcode;
-//	}
+
+
 	public String getItemName() {
 		return itemName;
 	}

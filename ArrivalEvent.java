@@ -1,21 +1,25 @@
+package Model;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ArrivalEvent {
 
   private String trackingNumber;
-    private Date expectedArrDate;
+    private Calendar expectedArrDate;
     private boolean statPending,statShipped,statArrived;
     
-    public arrivalEvent(){
+    public ArrivalEvent(){
         trackingNumber = null;
-        expectedArrDate = new Date(0);
+        expectedArrDate = GregorianCalendar.getInstance();
         statPending = true;
         statShipped = false;
         statArrived = false;
     }
     
-    public arrivalEvent(String x){
+    public ArrivalEvent(String x){
        trackingNumber = x;
-       expectedArrDate = new Date(0);
+       expectedArrDate = GregorianCalendar.getInstance();
        statPending = true;
        statShipped = false;
        statArrived = false;
@@ -31,12 +35,10 @@ public class ArrivalEvent {
     }
     
     public void setExpArrDate(int month, int date, int year){
-        expectedArrDate.setMonth(month);
-        expectedArrDate.setDate(date);
-        expectedArrDate.setYear(year);
+        expectedArrDate.set(year, month, date);
     }
     
-    public Date getExpArrDate(){
+    public Calendar getExpArrDate(){
         return expectedArrDate;
     }
     
@@ -67,10 +69,11 @@ public class ArrivalEvent {
         else return null;
     }
     
+    
     @Override
      public String toString(){
          return  "Tracking number: " + trackingNumber + "\n"
                  + "Status: " + getStatus() + "\n" 
-                 + "Expected Arrival Date: " + expectedArrDate.getMonth() + "/" + expectedArrDate.getDate()+ "/" + expectedArrDate.getYear()+"\n";
+                 + "Expected Arrival Date: " + expectedArrDate+"\n";
      }
 }

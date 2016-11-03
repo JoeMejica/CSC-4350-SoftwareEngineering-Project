@@ -1,4 +1,4 @@
-package InventoryManagementSystem;
+package Model;
 
 public class Employee {
 	protected String firstName;
