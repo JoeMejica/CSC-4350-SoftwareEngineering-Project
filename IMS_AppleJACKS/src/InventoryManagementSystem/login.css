@@ -20,7 +20,7 @@
 
 .button {
     -fx-background-color: #FFD034;
-	-fx-text-fill: black;
+	-fx-text-fill: white;
 	-fx-font-weight: bold;
 	-fx-text-alignment: center;
 }

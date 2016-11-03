@@ -1,5 +1,13 @@
 package InventoryManagementSystem;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -8,113 +16,91 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import Model.DepartureEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
+
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
 
-public class RemoveDepartureEventController implements Initializable {
-
-	@FXML
-	private TableView<DepartureItemTable> table;
-
-	@FXML
-	private TableColumn<DepartureItemTable, String> itemNameCol;
-
-	@FXML
-	private TableColumn<DepartureItemTable, String> barcodeCol;
-
-	@FXML
-	private TableColumn<DepartureItemTable, Boolean> shippedCol;
-
-	@FXML
-	private Button signOutIMS;
-
+public class ViewInventoryController implements Initializable {
 	@FXML
 	private Button mainMenuBtn;
-
 	@FXML
 	private Button outgoingBtn;
-
 	@FXML
 	private Button incomingBtn;
-
 	@FXML
 	private Button manageBtn;
-
 	@FXML
 	private Button settingsBtn;
-
 	@FXML
-	private Button removeBtn;
-
+	private Button signOutIMS;
 	@FXML
-	private TextField barcode;
-
+	private TableView<ViewInventoryTable> table;
 	@FXML
-	private Label status;
-
-	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
+	private TableColumn<ViewInventoryTable, String> aisleCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, String> nameCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, String> barcodeCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, Double> weightCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, String> expirationCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, String> sectionCol;
+	@FXML
+	private TableColumn<ViewInventoryTable, String> numberCol;
+	@FXML
+	private Label aisleLbl;
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<DepartureItemTable> list = FXCollections.observableArrayList();
-	DepartureEvent departEvent = new DepartureEvent();
+	ObservableList<ViewInventoryTable> list = FXCollections.observableArrayList();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	String viewAisle = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("itemName"));
-		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("barcode"));
-		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("shipped"));
-		loadShippedItems();
+		aisleCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("aisle"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("barcode"));
+		weightCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, Double>("weight"));
+		expirationCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("expiration"));
+		sectionCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("section"));
+		numberCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("number"));
 	}
 
-	public void removeEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(barcode.getText())) {
-			String query = "DELETE FROM departures WHERE barcode = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, barcode.getText());
-			ps.executeUpdate();
-			query = "UPDATE items SET reserved = ? WHERE barcode = ?";
-			ps = conn.prepareStatement(query);
-			ps.setBoolean(1, false);
-			ps.setString(2, barcode.getText());
-			ps.executeUpdate();
-			status.setText("Departure event successfully removed!");
-			list.removeAll(list);
-			loadShippedItems();
-			barcode.clear();
-		} else {
-			status.setText("Barcode not found!");
-		}
+	public void initAisle(String aisle) {
+		aisleLbl.setText(aisle);
+		viewAisle = aisleLbl.getText();
+		aisleLbl.setText("Aisle " + aisle);
+		loadAisle(viewAisle);
 	}
 
-	public void loadShippedItems() {
-		departEvent.createDepartureTable();
+	public void loadAisle(String aisle) {
 		try {
-			String query = "SELECT * FROM departures WHERE shipped = ?";
+			String query = "SELECT * FROM items WHERE aisle = ?";
 			ps = conn.prepareStatement(query);
-			ps.setBoolean(1, true);
-			ResultSet rs = ps.executeQuery();
+			ps.setString(1, aisle);
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new DepartureItemTable(rs.getString("itemname"), rs.getString("barcode"),
-						rs.getBoolean("reserved"), rs.getBoolean("pending"), rs.getBoolean("ready"),
-						rs.getBoolean("shipped")));
+				char aisleChar = rs.getString("aisle").charAt(0);
+				String aisleString = String.valueOf(aisleChar);
+				int i = Integer.parseInt(rs.getString("itemnumber"));
+				String number = String.valueOf(i);
+				list.add(new ViewInventoryTable(aisleString,
+						rs.getString("itemname"),
+						rs.getString("barcode"),
+						rs.getDouble("weight"),
+						rs.getString("expiration"),
+						rs.getString("section"),
+						number));
 				table.setItems(list);
 			}
 			ps.close();

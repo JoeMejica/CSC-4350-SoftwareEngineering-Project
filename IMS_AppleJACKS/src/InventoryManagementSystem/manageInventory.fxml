@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.manageMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.ManageInventoryController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -36,32 +36,37 @@
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="188.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="154.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="138.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="View Inventory by Aisle">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
+            <Label fx:id="viewLbl" text="View Inventory by Aisle" GridPane.halignment="CENTER" />
+            <Label fx:id="countLbl" text="Cycle Counts" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <ComboBox fx:id="aisleBox" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <ComboBox fx:id="sectionBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets top="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="aisleBox2" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Button fx:id="viewBtn" mnemonicParsing="false" onAction="#viewInventory" prefHeight="58.0" prefWidth="130.0" text="View Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="20.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="countBtn" mnemonicParsing="false" onAction="#cycleCount" prefHeight="60.0" prefWidth="151.0" text="Start Cycle Count" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Button>
+            <Label fx:id="countedLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="95.0" />
+               </GridPane.margin>
             </Label>
-            <Label text="Cycle Counts" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ComboBox prefWidth="150.0" promptText="Aisle Letter" GridPane.rowIndex="1" />
-            <ComboBox prefWidth="150.0" promptText="Aisle Letter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefHeight="27.0" prefWidth="44.0" text="Section Number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="View Inventory" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Start Cycle Count" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>

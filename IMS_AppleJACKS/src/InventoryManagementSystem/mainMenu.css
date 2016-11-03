@@ -1,25 +1,31 @@
 .root{
-    -fx-background-color: #1C2023;
-    -fx-text-fill: #F3F4F5;
-    -fx-font-size: 11px;
+    -fx-background-color: white;
+    -fx-text-fill: #F7B733;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
 
 .label{
-	-fx-text-fill: white;
-	-fx-font-size: 12px;
+	-fx-text-fill: #F7B733;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
 }
 
 .button{
-	-fx-background-color: #95AEC7;
-	-fx-text-fill: white;
+	-fx-background-color: #4ABDAC;
+	-fx-text-fill: #F3F4F5;
 	-fx-font-weight: bold;
 	-fx-text-alignment: center;
-	-fx-background-radius: 6;
+	-fx-background-radius: 0;
 }
 
 .combo-box{
-	-fx-background-color: #ADB3BA;
+	-fx-background-color: #FC4A1A;
+	-fx-text-fill: white;
+}
+.combo-box .list-cell{
+	-fx-background-color: #FC4A1A;
+	-fx-text-fill: white;
 }
 
 .text-input{
@@ -39,13 +45,13 @@
 .table-view .column-header-background{
     -fx-background-color: #FFD034;
     -fx-text-alignment:left;
-    -fx-font-size: 11px;
+    -fx-font-size: 12px;
 }
 
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-size: 11px;
+    -fx-font-size: 12px;
 }
 
 .table-view .column-header {
@@ -54,7 +60,7 @@
 }
 
 .table-view .table-cell{
-    -fx-text-fill: #95C7AE;
+    -fx-text-fill: black;
     -fx-font-size: 11px;
 }
 
@@ -69,7 +75,7 @@
     -fx-background-color: -fx-table-cell-border-color, white;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
-    -fx-font-size: 10px;  
+    -fx-font-size: 11px;  
 }
 
 .table-row-cell:selected {

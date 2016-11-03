@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import Model.Aisle;
+import Model.Barcode;
+import Model.DepartureEvent;
+import Model.Item;
+import Model.Section;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -94,6 +99,10 @@ public class BarcodeController implements Initializable {
 	Connection conn = SQLiteConnection.Connector();
 	ObservableList<BarcodeItemTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
+	Section checkSection = new Section();
+	Aisle checkAisle = new Aisle();
+	Barcode barcode = new Barcode();
+	Item item = new Item();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
@@ -111,107 +120,77 @@ public class BarcodeController implements Initializable {
 		loadBarcodeItems();
 	}
 
-	public boolean checkBarcode(String barcode) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM items WHERE barcode = ?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, barcode);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			return false;
-		} finally {
-			pstmt.close();
-			rset.close();
-		}
-	}
-
-	public boolean isItem(String itemName) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM items WHERE itemname = ? AND barcode IS NULL";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, itemName);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			return false;
-		} finally {
-			pstmt.close();
-			rset.close();
-		}
-	}
-
-	public void removeDups(String itemName) {
-		try {
-			String query = "SELECT * FROM items WHERE itemname = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, itemName);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				int dup = rs.getInt("id");
-				query = "UPDATE items SET barcode = NULL WHERE id = ?";
-				ps = conn.prepareStatement(query);
-				ps.setInt(1, dup);
-				ps.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void createBarcodeEvent(ActionEvent event) throws SQLException {
-		if (isItem(itemName.getText())) {
-			String first = aisleBox.getSelectionModel().getSelectedItem();
-			String second = sectionBox.getSelectionModel().getSelectedItem();
-			String third = number.getText();
-			String cat = first + second + third;
-			if (!checkBarcode(cat)) {
-				String query = "SELECT * FROM items WHERE itemname = ? AND barcode IS NULL";
-				int check = 0;
-				ps = conn.prepareStatement(query);
-				ps.setString(1, itemName.getText());
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					check++;
-				}
-				if (check > 1) {
-					query = "UPDATE \"main\".\"items\" SET \"barcode\" = ?1 WHERE  \"itemname\" = ?2 AND barcode IS NULL";
-					ps = conn.prepareStatement(query);
-					ps.setString(1, cat);
-					ps.setString(2, itemName.getText());
-					ps.executeUpdate();
-					removeDups(itemName.getText());
-					list.removeAll(list);
-					loadBarcodeItems();
-					status.setText("Barcode successfully created!");
-					number.clear();
-					itemName.clear();
-				} else {
-					query = "UPDATE \"main\".\"items\" SET \"barcode\" = ?1 WHERE  \"itemname\" = ?2 AND barcode IS NULL";
-					ps = conn.prepareStatement(query);
-					ps.setString(1, cat);
-					ps.setString(2, itemName.getText());
-					ps.executeUpdate();
-					list.removeAll(list);
-					loadBarcodeItems();
-					status.setText("Barcode successfully created!");
-					number.clear();
-					itemName.clear();
-				}
+		Barcode barcode = new Barcode();
+		if (item.isItem(itemName.getText())) {
+			char aisle = aisleBox.getSelectionModel().getSelectedItem().charAt(0);
+			String section = sectionBox.getSelectionModel().getSelectedItem();
+			if (checkSection.checkSectionFull(section)) {
+				status.setText("Section is full!");
 			} else {
-				status.setText("Barcode exists!");
+				if (checkAisle.checkAisleFull(aisleBox.getSelectionModel().getSelectedItem())) {
+					status.setText("Aisle is full!");
+				} else {
+					barcode.setAisleLetter(aisle);
+					barcode.setSectionNumber(section);
+					if (!number.getText().isEmpty() && !number.getText().trim().matches(".*\\D.*")) {
+						int x = Integer.parseInt(number.getText());
+						int length = String.valueOf(x).length();
+						if (length != 4) {
+							status.setText("Incorrect format!");
+						} else {
+							String itemnumber = number.getText();
+							barcode.setItemNumber(itemnumber);
+							int itemN = Integer.parseInt(itemnumber);
+							// String cat = aisle + section + itemnumber;
+							if (!barcode.checkBarcode(barcode.getBarcode())) {
+								String query = "SELECT * FROM items WHERE itemname = ? AND barcode IS NULL";
+								int check = 0;
+								ps = conn.prepareStatement(query);
+								ps.setString(1, itemName.getText());
+								rs = ps.executeQuery();
+								while (rs.next()) {
+									check++;
+								}
+								if (check > 1) {
+									query = "UPDATE items SET barcode=?, aisle=?, section=?, itemnumber=? WHERE itemname=? AND barcode IS NULL";
+									ps = conn.prepareStatement(query);
+									ps.setString(1, barcode.getBarcode());
+									ps.setString(2, String.valueOf(aisle));
+									ps.setString(3, section);
+									ps.setInt(4, itemN);
+									ps.setString(5, itemName.getText());
+									ps.executeUpdate();
+									item.removeDups(itemName.getText());
+									list.removeAll(list);
+									loadBarcodeItems();
+									status.setText("Barcode successfully created!");
+									number.clear();
+									itemName.clear();
+								} else {
+									query = "UPDATE items SET barcode=?, aisle=?, section=?, itemnumber=? WHERE itemname=? AND barcode IS NULL";
+									ps = conn.prepareStatement(query);
+									ps = conn.prepareStatement(query);
+									ps.setString(1, barcode.getBarcode());
+									ps.setString(2, String.valueOf(aisle));
+									ps.setString(3, section);
+									ps.setInt(4, itemN);
+									ps.setString(5, itemName.getText());
+									ps.executeUpdate();
+									list.removeAll(list);
+									loadBarcodeItems();
+									status.setText("Barcode successfully created!");
+									number.clear();
+									itemName.clear();
+								}
+							} else {
+								status.setText("Barcode exists!");
+							}
+						}
+					} else {
+						status.setText("Incorrect format!");
+					}
+				}
 			}
 		} else {
 			status.setText("Item not found!");

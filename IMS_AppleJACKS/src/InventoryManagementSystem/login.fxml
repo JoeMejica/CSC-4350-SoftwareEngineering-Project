@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="333.0" stylesheets="/InventoryManagementSystem/login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.loginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="333.0" stylesheets="/InventoryManagementSystem/login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.LoginController">
 	<children>
 		<TextField fx:id="txtUserName" layoutX="51.0" layoutY="85.0" promptText="Username">
 			<font>
@@ -27,12 +27,11 @@
 				<Font size="18.0" />
 			</font>
 		</Button>
-		<Label layoutX="42.0" layoutY="30.0" prefHeight="23.0" prefWidth="250.0" text="Inventory Management System">
+		<Label layoutX="42.0" layoutY="43.0" prefHeight="23.0" prefWidth="250.0" text="Inventory Management System">
 			<font>
 				<Font size="18.0" />
 			</font>
 		</Label>
-		<Label layoutX="41.0" layoutY="55.0" text="Username: admin  Password: admin" />
 		<Label fx:id="lblStatus" layoutX="41.0" layoutY="245.0" />
 	</children>
 </AnchorPane>

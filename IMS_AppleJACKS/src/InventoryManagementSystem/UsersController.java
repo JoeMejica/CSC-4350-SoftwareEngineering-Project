@@ -18,141 +18,95 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class UpdateDepartureEventController implements Initializable {
+public class UsersController implements Initializable {
 
 	@FXML
-	private TableView<DepartureItemTable> table;
+	private TableView<UserTable> table;
 
 	@FXML
-	private TableColumn<DepartureItemTable, String> itemNameCol;
+	private TableColumn<UserTable, String> firstNameCol;
+
+	@FXML
+	private TableColumn<UserTable, String> middleInitCol;
 	
 	@FXML
-	private TableColumn<DepartureItemTable, String> barcodeCol;
+	private TableColumn<UserTable, String> lastNameCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> phoneCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> emailCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> contactNameCol;
+	
+	@FXML
+	private TableColumn<UserTable, String> contactEmailCol;
 
 	@FXML
-	private TableColumn<DepartureItemTable, Boolean> reserveCol;
+	private TableColumn<UserTable, String> contactNumCol;
 
 	@FXML
-	private TableColumn<DepartureItemTable, Boolean> pendingCol;
+	public Button signOutIMS;
 
 	@FXML
-	private TableColumn<DepartureItemTable, Boolean> readyCol;
+	public Button mainMenuBtn;
 
 	@FXML
-	private TableColumn<DepartureItemTable, Boolean> shippedCol;
+	public Button outgoingBtn;
 
 	@FXML
-	private Button signOutIMS;
+	public Button incomingBtn;
 
 	@FXML
-	private Button mainMenuBtn;
+	public Button manageBtn;
 
 	@FXML
-	private Button outgoingBtn;
-
-	@FXML
-	private Button incomingBtn;
-
-	@FXML
-	private Button manageBtn;
-
-	@FXML
-	private Button settingsBtn;
-
-	@FXML
-	private Button pendingBtn;
-
-	@FXML
-	private Button readyBtn;
-
-	@FXML
-	private Button shippedBtn;
-
-	@FXML
-	private TextField barcode;
-
-	@FXML
-	private Label status;
-
-	@FXML
-	private Label txtFieldLbl;
-
-	@FXML
-	private Label tableName;
+	public Button settingsBtn;
 
 	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<DepartureItemTable> list = FXCollections.observableArrayList();
+	ObservableList<UserTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("itemName"));
-		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("barcode"));
-		reserveCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("reserved"));
-		pendingCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("pending"));
-		readyCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("ready"));
-		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("shipped"));
-		loadDepartureItems();
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		firstNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("firstName"));
+		middleInitCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("middleInit"));
+		lastNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("lastName"));
+		phoneCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("phoneNumber"));
+		emailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("email"));
+		contactNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactName"));
+		contactEmailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactEmail"));
+		contactNumCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactNumber"));
+		loadUsers();
 	}
-
-	public void pendingEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(barcode.getText())) {
-			departEvent.pendingEvent(barcode.getText());
-			status.setText("Update pending status successful!");
-			list.removeAll(list);
-			loadDepartureItems();
-			barcode.clear();
-		} else {
-			status.setText("Barcode not found!");
-		}
-	}
-
-	public void readyEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(barcode.getText())) {
-			departEvent.readyEvent(barcode.getText());
-			status.setText("Update ready status successful!");
-			list.removeAll(list);
-			loadDepartureItems();
-			barcode.clear();
-		} else {
-			status.setText("Barcode not found!");
-		}
-	}
-
-	public void shippedEvent(ActionEvent event) throws SQLException {
-		if (departEvent.isDepartItem(barcode.getText())) {
-			departEvent.shippedEvent(barcode.getText());
-			status.setText("Update shipped status successful!");
-			list.removeAll(list);
-			loadDepartureItems();
-			barcode.clear();
-		} else {
-			status.setText("Barcode not found!");
-		}
-	}
-
-	public void loadDepartureItems() {
-		departEvent.createDepartureTable();
+	
+	public void loadUsers() {
 		try {
-			String query = "SELECT * FROM departures";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
+			String query = "SELECT * FROM employee";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new DepartureItemTable(rs.getString("itemname"), rs.getString("barcode"), rs.getBoolean("reserved"),
-						rs.getBoolean("pending"), rs.getBoolean("ready"), rs.getBoolean("shipped")));
+				list.add(new UserTable(rs.getString("firstname"),
+						rs.getString("middleinitial"),
+						rs.getString("lastname"),
+						rs.getString("phonenumber"),
+						rs.getString("email"),
+						rs.getString("contactname"),
+						rs.getString("contactnumber"),
+						rs.getString("contactemail")));
 				table.setItems(list);
 			}
 			ps.close();
@@ -241,5 +195,7 @@ public class UpdateDepartureEventController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	// TODO: INSERT REMAINING METHODS HERE
 
 }

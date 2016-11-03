@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import Model.LoginModel;
+
 public class settingsMenuController {
 	public LoginModel loginModel = new LoginModel();
 

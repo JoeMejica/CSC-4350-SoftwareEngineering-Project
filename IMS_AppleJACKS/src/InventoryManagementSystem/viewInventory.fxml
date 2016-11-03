@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.RemoveDepartureEventController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.ViewInventoryController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -40,47 +40,26 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="itemNameCol" prefWidth="110.0" text="Item" />
-                <TableColumn fx:id="barcodeCol" prefWidth="110.0" text="Barcode" />
-                  <TableColumn fx:id="shippedCol" prefWidth="110.0" text="Shipped" />
-              </columns>
+               <columns>
+                  <TableColumn fx:id="aisleCol" prefWidth="39.0" text="Aisle" />
+                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Item" />
+                  <TableColumn fx:id="barcodeCol" prefWidth="71.0" text="Barcode" />
+                  <TableColumn fx:id="weightCol" prefWidth="72.0" text="Weight" />
+                  <TableColumn fx:id="expirationCol" prefWidth="112.0" text="Expiration Date" />
+                  <TableColumn fx:id="sectionCol" prefWidth="50.0" text="Section" />
+                  <TableColumn fx:id="numberCol" prefWidth="100.0" text="Item Number" />
+               </columns>
                <GridPane.margin>
-                  <Insets top="27.0" />
+                  <Insets top="25.0" />
                </GridPane.margin>
             </TableView>
-            <TextField fx:id="barcode" alignment="CENTER" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" promptText="Barcode" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeEvent" prefHeight="50.0" text="Remove Departure Event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <tooltip>
-                  <Tooltip text="Removes shipped item from database" />
-               </tooltip>
-            </Button>
-            <Label text="Enter item's barcode" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="15.0" />
-               </GridPane.margin>
+            <Label fx:id="aisleLbl" text="Inventory" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="14.0" />
                </font>
-            </Label>
-            <Label text="Departure Events" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="status" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="15.0" />
-               </GridPane.margin>
             </Label>
          </children>
       </GridPane>
