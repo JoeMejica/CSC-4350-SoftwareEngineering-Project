@@ -27,5 +27,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+        //console output added for QA
+        System.out.println("Inventory Management System Launched");
+
+
     }
 }

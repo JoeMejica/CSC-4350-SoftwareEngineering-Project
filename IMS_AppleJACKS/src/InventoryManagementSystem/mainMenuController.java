@@ -58,6 +58,9 @@ public class mainMenuController {
 
     public void signOut(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Sign Out Button Clicked");
+
         stage=(Stage) signOutIMS.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Login");
@@ -71,6 +74,9 @@ public class mainMenuController {
     }
 
     public void mainMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Main Menu Button Clicked");
 
         stage=(Stage) mainMenuBtn.getScene().getWindow();
 
@@ -87,6 +93,9 @@ public class mainMenuController {
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Outgoing Menu Button Clicked");
+
         stage=(Stage) outgoingBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Outgoing Shipments Menu");
@@ -99,6 +108,9 @@ public class mainMenuController {
     }
 
     public void incomingMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Incoming Menu Button Clicked");
 
         stage=(Stage) incomingBtn.getScene().getWindow();
 
@@ -114,6 +126,9 @@ public class mainMenuController {
 
     public void manageMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Manage Menu Button Clicked");
+
         stage=(Stage) manageBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
@@ -126,6 +141,9 @@ public class mainMenuController {
     }
 
     public void settingsMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Settings Menu Button Clicked");
 
         stage=(Stage) settingsBtn.getScene().getWindow();
 

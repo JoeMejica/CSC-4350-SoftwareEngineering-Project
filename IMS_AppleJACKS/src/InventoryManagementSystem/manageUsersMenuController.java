@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,6 +34,36 @@ public class manageUsersMenuController {
     @FXML
     public Button settingsBtn;
 
+    @FXML
+    public ComboBox userTypeCBox;
+
+    @FXML
+    public TextField firstNameField;
+
+    @FXML
+    public TextField middleInitialField;
+
+    @FXML
+    public TextField lastNameField;
+
+    @FXML
+    public TextField usernameField;
+
+    @FXML
+    public TextField passwordField;
+
+    @FXML
+    public TextField emergencyContactField;
+
+    @FXML
+    public TextField contactNumberField;
+
+    @FXML
+    public Button viewAllUsersBtn;
+
+    @FXML
+    public Button submitFormBtn;
+
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
@@ -40,6 +72,9 @@ public class manageUsersMenuController {
 
 
     public void signOut(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Sign Out Button Clicked");
 
         stage=(Stage) signOutIMS.getScene().getWindow();
 
@@ -54,6 +89,9 @@ public class manageUsersMenuController {
     }
 
     public void mainMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Main Menu Button Clicked");
 
         stage=(Stage) mainMenuBtn.getScene().getWindow();
 
@@ -70,6 +108,9 @@ public class manageUsersMenuController {
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Outgoing Menu Button Clicked");
+
         stage=(Stage) outgoingBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Outgoing Shipments Menu");
@@ -82,6 +123,9 @@ public class manageUsersMenuController {
     }
 
     public void incomingMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Incoming Menu Button Clicked");
 
         stage=(Stage) incomingBtn.getScene().getWindow();
 
@@ -97,6 +141,9 @@ public class manageUsersMenuController {
 
     public void manageMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Manage Menu Button Clicked");
+
         stage=(Stage) manageBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
@@ -110,6 +157,10 @@ public class manageUsersMenuController {
 
     public void settingsMenu(ActionEvent actionEvent) throws IOException {
 
+
+        //console output added for QA
+        System.out.println("Settings Menu Button Clicked");
+
         stage=(Stage) settingsBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Settings Menu");
@@ -121,12 +172,26 @@ public class manageUsersMenuController {
         stage.show();
     }
 
-    public void viewUserDB(ActionEvent actionEvent) {
-        System.out.println("Hello Database!");
+    public void viewUserDB(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("View User Database Button Clicked");
+
+        stage=(Stage) settingsBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | User Database");
+
+        root = FXMLLoader.load(getClass().getResource("userDatabase.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void submitForm(ActionEvent actionEvent) {
-        System.out.println("Taco Bell");
+
+        //console output added for QA
+        System.out.println("Submit Form Button Clicked");
     }
 
 

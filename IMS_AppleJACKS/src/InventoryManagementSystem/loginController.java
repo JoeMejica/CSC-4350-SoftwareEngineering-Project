@@ -41,6 +41,9 @@ public class loginController {
     @FXML
     public void Login(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Login Button Clicked");
+
         if (txtUserName.getText().equals("admin") && loginPassword.getText().equals("password")) {
 
 

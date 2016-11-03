@@ -6,57 +6,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class manageMenuController {
+public class createArrivalController {
 
-    @FXML
-    public Button signOutIMS;
+@FXML
+public Button signOutIMS;
 
-    @FXML
-    public Button mainMenuBtn;
+@FXML
+public Button mainMenuBtn;
 
+@FXML
+public Button barcodeBtn;
 
-    @FXML
-    public Button outgoingBtn;
+@FXML
+public Button outgoingBtn;
 
-    @FXML
-    public Button incomingBtn;
+@FXML
+public Button incomingBtn;
 
-    @FXML
-    public Button manageBtn;
+@FXML
+public Button manageBtn;
 
-    @FXML
-    public Button settingsBtn;
-
-    @FXML
-    public ComboBox viewInventoryAisleCBox;
-
-    @FXML
-    public ComboBox cycleCountAisleCBox;
-
-    @FXML
-    public TextField sectionNumberInput;
-
-    @FXML
-    public Button viewInventoryBtn;
-
-    @FXML
-    public Button startCycleCountBtn;
+@FXML
+public Button settingsBtn;
 
 
-    //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
+        //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
-    Stage stage;
-    Parent root;
+        Stage stage;
+        Parent root;
 
 
-    public void signOut(ActionEvent actionEvent) throws IOException {
+public void signOut(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
         System.out.println("Sign Out Button Clicked");
@@ -71,9 +56,9 @@ public class manageMenuController {
         stage.setScene(scene);
         stage.show();
 
-    }
+        }
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+public void mainMenu(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
         System.out.println("Main Menu Button Clicked");
@@ -87,10 +72,11 @@ public class manageMenuController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
+        }
 
 
-    public void outgoingMenu(ActionEvent actionEvent) throws IOException {
+
+public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
         System.out.println("Outgoing Menu Button Clicked");
@@ -104,9 +90,9 @@ public class manageMenuController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
+        }
 
-    public void incomingMenu(ActionEvent actionEvent) throws IOException {
+public void incomingMenu(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
         System.out.println("Incoming Menu Button Clicked");
@@ -121,9 +107,9 @@ public class manageMenuController {
         stage.setScene(scene);
         stage.show();
 
-    }
+        }
 
-    public void manageMenu(ActionEvent actionEvent) throws IOException {
+public void manageMenu(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
         System.out.println("Manage Menu Button Clicked");
@@ -137,9 +123,10 @@ public class manageMenuController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
+        }
 
-    public void settingsMenu(ActionEvent actionEvent) throws IOException {
+public void settingsMenu(ActionEvent actionEvent) throws IOException {
+
 
         //console output added for QA
         System.out.println("Settings Menu Button Clicked");
@@ -153,42 +140,10 @@ public class manageMenuController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void viewInventory(ActionEvent actionEvent) throws IOException {
-
-        //console output added for QA
-        System.out.println("View Inventory Button Clicked");
-
-        stage=(Stage) settingsBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | View Inventory");
-
-        root = FXMLLoader.load(getClass().getResource("viewInventory.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        }
 
 
-    }
-
-    public void startCycleCount(ActionEvent actionEvent) throws IOException {
-
-        //console output added for QA
-        System.out.println("Start Cycle Count Button Clicked");
-
-        stage=(Stage) settingsBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | Cycle Count");
-
-        root = FXMLLoader.load(getClass().getResource("cycleCount.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
-    //TODO: INSERT REMAINING METHODS HERE
-}
+        //TODO: INSERT REMAINING METHODS HERE
+        }

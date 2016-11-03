@@ -59,6 +59,9 @@ public class settingsMenuController {
 
     public void signOut(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Sign Out Button Clicked");
+
         stage=(Stage) signOutIMS.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Login");
@@ -73,6 +76,9 @@ public class settingsMenuController {
 
     public void mainMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Main Menu Button Clicked");
+
         stage=(Stage) mainMenuBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Main Menu");
@@ -84,21 +90,12 @@ public class settingsMenuController {
         stage.show();
     }
 
-    public void barcodeMenu(ActionEvent actionEvent) throws IOException {
 
-        stage=(Stage) barcodeBtn.getScene().getWindow();
-
-        stage.setTitle("I.M.S. | Barcode Menu");
-
-
-        root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Outgoing Menu Button Clicked");
 
         stage=(Stage) outgoingBtn.getScene().getWindow();
 
@@ -112,6 +109,9 @@ public class settingsMenuController {
     }
 
     public void incomingMenu(ActionEvent actionEvent) throws IOException {
+
+        //console output added for QA
+        System.out.println("Incoming Menu Button Clicked");
 
         stage=(Stage) incomingBtn.getScene().getWindow();
 
@@ -127,6 +127,9 @@ public class settingsMenuController {
 
     public void manageMenu(ActionEvent actionEvent) throws IOException {
 
+        //console output added for QA
+        System.out.println("Manage Menu Button Clicked");
+
         stage=(Stage) manageBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Manage Inventory Menu");
@@ -139,6 +142,10 @@ public class settingsMenuController {
     }
 
     public void settingsMenu(ActionEvent actionEvent) throws IOException {
+
+
+        //console output added for QA
+        System.out.println("Settings Menu Button Clicked");
 
         stage=(Stage) settingsBtn.getScene().getWindow();
 
@@ -153,6 +160,11 @@ public class settingsMenuController {
 
     //TODO: create and host Bootstrap site containing help documentation for IMS
     public void helpURL(ActionEvent actionEvent) {
+
+        //console output added for QA
+        System.out.println("Help Button Clicked");
+
+
 
         try {
             Desktop.getDesktop().browse(new URI("http://lmgtfy.com/?q=help"));
@@ -172,6 +184,10 @@ public class settingsMenuController {
         //TODO: add admin boolean logic
         //admins only have access to button, if not admin -> settingsPromptLbl.setText("Admins Only");
 
+
+        //console output added for QA
+        System.out.println("Manage Users Button Clicked");
+
         stage=(Stage) manageUsersBtn.getScene().getWindow();
 
         stage.setTitle("I.M.S. | Manage Users Menu");
@@ -184,6 +200,9 @@ public class settingsMenuController {
     }
 
     public void showVersionNumber(ActionEvent actionEvent) {
+
+        //console output added for QA
+        System.out.println("Version Number Button Clicked");
         settingsPromptLbl.setText("IMS Version 1.0");
 
     }

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.manageUsersMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainGUI.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.manageUsersMenuController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -21,19 +23,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true">
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Button>
+                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true" />
                 <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="45.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
                 <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="45.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
                 <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="45.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-                <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#settingsMenu" prefHeight="45.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="4">
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Button>
+                <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#settingsMenu" prefHeight="45.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="4" />
                 <Button fx:id="signOutIMS" mnemonicParsing="false" onAction="#signOut" prefHeight="27.0" prefWidth="100.0" text="Sign-Out" GridPane.rowIndex="5" />
             </children>
             <padding>
@@ -72,9 +66,20 @@
             <Label text="Last Name" GridPane.rowIndex="4" />
             <Label text="Username" GridPane.rowIndex="5" />
             <Label text="Password" GridPane.rowIndex="6" />
-            <Label text="Emergeny Contact " GridPane.rowIndex="7" />
+            <Label text="Emergeny Contact " GridPane.rowIndex="7">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
             <Label text="Contact #" GridPane.rowIndex="8" />
-            <ComboBox fx:id="userTypeCBox" prefHeight="27.0" prefWidth="193.0" promptText="Admin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="userTypeCBox" prefHeight="27.0" prefWidth="193.0" promptText="------" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Admin" />
+                        <String fx:value="Employee" />
+
+                    </FXCollections>
+                </items>
+                    </ComboBox>
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="middleInitialField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
