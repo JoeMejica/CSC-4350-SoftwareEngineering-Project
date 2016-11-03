@@ -101,7 +101,7 @@ public class incomingMenuController {
 
         stage=(Stage) settingsBtn.getScene().getWindow();
 
-        stage.setTitle("I.M.S. | Settings Menu");
+        stage.setTitle("I.M.S. | Barcode Menu");
 
         root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
 

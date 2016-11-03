@@ -21,19 +21,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true">
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Button>
+                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true" />
                 <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="45.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
                 <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="45.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
                 <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="45.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-                <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#settingsMenu" prefHeight="45.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="4">
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Button>
+                <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#settingsMenu" prefHeight="45.0" prefWidth="100.0" text="Settings" wrapText="true" GridPane.rowIndex="4" />
                 <Button fx:id="signOutIMS" mnemonicParsing="false" onAction="#signOut" prefHeight="27.0" prefWidth="100.0" text="Sign-Out" GridPane.rowIndex="5" />
             </children>
             <padding>
@@ -94,7 +86,7 @@
                <font>
                   <Font size="9.0" />
                </font></Label>
-            <Label prefWidth="300.0" text="Emergeny Contact " GridPane.rowIndex="9">
+            <Label prefWidth="300.0" text="Emergency Contact " GridPane.rowIndex="9">
                <font>
                   <Font size="9.0" />
                </font></Label>

@@ -128,11 +128,11 @@ public class manageUsersMenuController implements Initializable {
 			level = true;
 		}
 		String x = "";
-		if (!(firstNameField.getText().equals(x))) {
-			if (lastNameField.getText().equals(x)) {
-				if (usernameField.getText().equals(x)) {
-					if (passwordField.getText().equals(x)) {
-						if (emergencyContactField.getText().equals(x)) {
+		if (!(firstNameField.getText().equals(x))) {status.setText(null);
+			if (!(lastNameField.getText().equals(x))) {status.setText(null);
+				if (!(usernameField.getText().equals(x))) {status.setText(null);
+					if (!(passwordField.getText().equals(x))) {status.setText(null);
+						if (!(emergencyContactField.getText().equals(x))) {status.setText(null);
 							hire.setAdmin(level);
 							hire.setFirstName(firstNameField.getText());
 							hire.setMiddleInitial(middleInitialField.getText());
@@ -148,29 +148,22 @@ public class manageUsersMenuController implements Initializable {
 							if (compareX.equals(compareY)) {
 								compareX = confirm.getPhoneNumber();
 								compareY = contactNumberField.getText();
-								System.out.println(compareX);
-								System.out.println(compareY);
-								System.out.println("email good");
 								emailLbl.setText(null);
 								if (compareX.equals(compareY)) {
 									compareX = confirmEmergency.getEmailAddress();
 									compareY = emergencyEmailField.getText();
-									System.out.println("phone good");
 									phoneLbl.setText(null);
 									if (compareX.equals(compareY)) {
 										compareX = confirmEmergency.getPhoneNumber();
 										compareY = emergencyNumberField.getText();
-										System.out.println("emer email good");
 										contactPhoneLbl.setText(null);
 										if (compareX.equals(compareY)) {
-											System.out.println("emer phone good");
 											contactEmailLbl.setText(null);
 											String query = "SELECT * FROM employee WHERE username = ?";
 											try {
 												ps = conn.prepareStatement(query);
 												ps.setString(1, hire.getUsername());
 												rs = ps.executeQuery();
-												System.out.println("Check username good");
 												if (rs.next()) {
 													userLbl.setText("Username exists!");
 												} else {
@@ -179,7 +172,6 @@ public class manageUsersMenuController implements Initializable {
 													ps = conn.prepareStatement(query);
 													ps.setString(1, emailField.getText());
 													rs = ps.executeQuery();
-													System.out.println("Check email good");
 													if (rs.next()) {
 														emailLbl.setText("Email exists!");
 													} else {
@@ -210,7 +202,6 @@ public class manageUsersMenuController implements Initializable {
 														emergencyContactField.clear();
 														emergencyEmailField.clear();
 														emergencyNumberField.clear();
-
 														status.setText("New user created!");
 													}
 												}
