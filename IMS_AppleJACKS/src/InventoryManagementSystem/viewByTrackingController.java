@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +34,12 @@ public Button manageBtn;
 
 @FXML
 public Button settingsBtn;
+
+@FXML
+public Label trackingNumberLbl;
+
+@FXML
+public Button backtoIncomingBtn;
 
 
         //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
@@ -142,7 +149,22 @@ public void settingsMenu(ActionEvent actionEvent) throws IOException {
         stage.show();
         }
 
+        public void backToIncomingMenu(ActionEvent actionEvent) throws IOException {
 
+                //console output added for QA
+                System.out.println("Back To Incoming Button Clicked");
+
+                stage=(Stage) settingsBtn.getScene().getWindow();
+
+                stage.setTitle("I.M.S. | Incoming Shipments Menu");
+
+                root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
+
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+        }
 
 
         //TODO: INSERT REMAINING METHODS HERE

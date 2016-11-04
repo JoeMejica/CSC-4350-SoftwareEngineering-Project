@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +35,18 @@ public Button manageBtn;
 
 @FXML
 public Button settingsBtn;
+
+@FXML
+public Button backToManageInventoryBtn;
+
+@FXML
+public Label aisleLbl;
+
+@FXML
+public Label sectionLbl;
+
+@FXML
+public TableView cycleCountDB;
 
 
         //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
@@ -142,8 +156,24 @@ public void settingsMenu(ActionEvent actionEvent) throws IOException {
         stage.show();
         }
 
+    public void returnToManageInventory(ActionEvent actionEvent) throws IOException {
+
+            //console output added for QA
+            System.out.println("Back to Manage Inventory Button Clicked");
+
+            stage=(Stage) settingsBtn.getScene().getWindow();
+
+            stage.setTitle("I.M.S. | Manage Inventory Menu");
+
+            root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
 
 
+    }
 
-        //TODO: INSERT REMAINING METHODS HERE
+
+    //TODO: INSERT REMAINING METHODS HERE
         }
