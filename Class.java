@@ -1,3 +1,4 @@
+package Model;
 
 public class Class {
 	private Aisle[] aisles=new Aisle[2];
@@ -21,23 +22,23 @@ public class Class {
 			return aislesFull[0];
 		}
 	}
-	public void addItem(Item newItem){
-		if(!ClassLetter.equals("O")){
-			char aisleLetter=newItem.getBarcode().getAisleLetter();
-			if((aisleLetter-'a')%2==0){
-				aisles[0].addItem(newItem);
-				aislesFull[0]=aisles[0].allSectionsFull();
-			}
-			else{
-				aisles[1].addItem(newItem);
-				aislesFull[1]=aisles[1].allSectionsFull();
-			}
-		}
-		else{
-			aisles[0].addItem(newItem);
-			aislesFull[0]=aisles[0].allSectionsFull();
-		}
-	}
+//	public void addItem(Item newItem){
+//		if(!ClassLetter.equals("O")){
+//			char aisleLetter=newItem.getBarcode().getAisleLetter();
+//			if((aisleLetter-'a')%2==0){
+//				aisles[0].addItem(newItem);
+//				aislesFull[0]=aisles[0].allSectionsFull();
+//			}
+//			else{
+//				aisles[1].addItem(newItem);
+//				aislesFull[1]=aisles[1].allSectionsFull();
+//			}
+//		}
+//		else{
+//			aisles[0].addItem(newItem);
+//			aislesFull[0]=aisles[0].allSectionsFull();
+//		}
+//	}
 	
 	public Item findItem(Barcode barcode){
 		Item returnItem;

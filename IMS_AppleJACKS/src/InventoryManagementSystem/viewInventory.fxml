@@ -6,7 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<<<<<<< HEAD
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainGUI.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.viewInventoryController">
+=======
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.ViewInventoryController">
+>>>>>>> origin/master
     <left>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -21,11 +25,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
+<<<<<<< HEAD
                 <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Button>
+=======
+                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true" />
+>>>>>>> origin/master
                 <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="45.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
                 <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="45.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
                 <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="45.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
@@ -38,6 +46,7 @@
         </GridPane>
     </left>
    <center>
+<<<<<<< HEAD
       <TableView fx:id="inventoryDB" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
@@ -53,11 +62,17 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="88.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+=======
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+>>>>>>> origin/master
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+<<<<<<< HEAD
             <Label fx:id="aisleLabel" text="Aisle: " GridPane.columnIndex="1" />
             <Button fx:id="backtoManageBtn" mnemonicParsing="false" onAction="#backToManageMenu" text="Back" GridPane.columnIndex="4">
                <GridPane.margin>
@@ -67,4 +82,28 @@
          </children>
       </GridPane>
    </bottom>
+=======
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="aisleCol" prefWidth="39.0" text="Aisle" />
+                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Item" />
+                  <TableColumn fx:id="barcodeCol" prefWidth="71.0" text="Barcode" />
+                  <TableColumn fx:id="weightCol" prefWidth="72.0" text="Weight" />
+                  <TableColumn fx:id="expirationCol" prefWidth="112.0" text="Expiration Date" />
+                  <TableColumn fx:id="sectionCol" prefWidth="50.0" text="Section" />
+                  <TableColumn fx:id="numberCol" prefWidth="100.0" text="Item Number" />
+               </columns>
+               <GridPane.margin>
+                  <Insets top="25.0" />
+               </GridPane.margin>
+            </TableView>
+            <Label fx:id="aisleLbl" text="Inventory" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+>>>>>>> origin/master
 </BorderPane>

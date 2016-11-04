@@ -21,11 +21,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
+<<<<<<< HEAD
                 <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
                 </Button>
+=======
+                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true" />
+>>>>>>> origin/master
                 <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="45.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
                 <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="45.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
                 <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="45.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
@@ -37,6 +41,7 @@
             </padding>
         </GridPane>
     </left>
+<<<<<<< HEAD
    <right>
       <TableView fx:id="arrivalDB" prefHeight="400.0" prefWidth="246.0" BorderPane.alignment="CENTER">
         <columns>
@@ -89,5 +94,9 @@
             </TextField>
          </children>
       </GridPane>
+=======
+   <center>
+      <Button fx:id="barcodeBtn" mnemonicParsing="false" onAction="#barcodeMenu" prefHeight="143.0" prefWidth="203.0" text="Barcode Temporary Location" BorderPane.alignment="CENTER" />
+>>>>>>> origin/master
    </center>
 </BorderPane>

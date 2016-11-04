@@ -14,153 +14,208 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import Model.LoginModel;
 
 public class settingsMenuController {
+	public LoginModel loginModel = new LoginModel();
 
-    @FXML
-    public Button signOutIMS;
+	@FXML
+	public Button signOutIMS;
 
-    @FXML
-    public Button mainMenuBtn;
+	@FXML
+	public Button mainMenuBtn;
 
-    @FXML
-    public Button barcodeBtn;
+	@FXML
+	public Button barcodeBtn;
 
-    @FXML
-    public Button outgoingBtn;
+	@FXML
+	public Button outgoingBtn;
 
-    @FXML
-    public Button incomingBtn;
+	@FXML
+	public Button incomingBtn;
 
-    @FXML
-    public Button manageBtn;
+	@FXML
+	public Button manageBtn;
 
-    @FXML
-    public Button settingsBtn;
+	@FXML
+	public Button settingsBtn;
 
-    @FXML
-    public Label settingsPromptLbl;
+	@FXML
+	public Label settingsPromptLbl;
 
-    @FXML
-    public Button helpBtn;
+	@FXML
+	public Button helpBtn;
 
-    @FXML
-    public Button manageUsersBtn;
+	@FXML
+	public Button manageUsersBtn;
 
-    @FXML
-    public Button aboutBtn;
+	@FXML
+	public Button aboutBtn;
 
+	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
-    //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
+	Stage stage;
+	Parent root;
 
-    Stage stage;
-    Parent root;
+	public void signOut(ActionEvent actionEvent) throws IOException {
 
+		stage = (Stage) signOutIMS.getScene().getWindow();
 
-    public void signOut(ActionEvent actionEvent) throws IOException {
+		stage.setTitle("I.M.S. | Login");
 
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Sign Out Button Clicked");
 
         stage=(Stage) signOutIMS.getScene().getWindow();
+=======
+		root = FXMLLoader.load(getClass().getResource("login.fxml"));
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Login");
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 
-        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+	}
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+	public void mainMenu(ActionEvent actionEvent) throws IOException {
 
-    }
+		stage = (Stage) mainMenuBtn.getScene().getWindow();
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+		stage.setTitle("I.M.S. | Main Menu");
 
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Main Menu Button Clicked");
 
         stage=(Stage) mainMenuBtn.getScene().getWindow();
+=======
+		root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Main Menu");
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+	public void barcodeMenu(ActionEvent actionEvent) throws IOException {
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+		stage = (Stage) barcodeBtn.getScene().getWindow();
 
+<<<<<<< HEAD
 
+=======
+		stage.setTitle("I.M.S. | Barcode Menu");
 
-    public void outgoingMenu(ActionEvent actionEvent) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("barcode.fxml"));
 
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void outgoingMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) outgoingBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Outgoing Shipments Menu");
+>>>>>>> origin/master
+
+		root = FXMLLoader.load(getClass().getResource("outgoing.fxml"));
+
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Outgoing Menu Button Clicked");
 
         stage=(Stage) outgoingBtn.getScene().getWindow();
+=======
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Outgoing Shipments Menu");
+	public void incomingMenu(ActionEvent actionEvent) throws IOException {
 
-        root = FXMLLoader.load(getClass().getResource("outgoing.fxml"));
+		stage = (Stage) incomingBtn.getScene().getWindow();
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+		stage.setTitle("I.M.S. | Incoming Shipments Menu");
 
-    public void incomingMenu(ActionEvent actionEvent) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
 
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Incoming Menu Button Clicked");
 
         stage=(Stage) incomingBtn.getScene().getWindow();
+=======
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Incoming Shipments Menu");
+	}
 
-        root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
+	public void manageMenu(ActionEvent actionEvent) throws IOException {
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+		stage = (Stage) manageBtn.getScene().getWindow();
 
-    }
+		stage.setTitle("I.M.S. | Manage Inventory Menu");
 
-    public void manageMenu(ActionEvent actionEvent) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
 
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Manage Menu Button Clicked");
 
         stage=(Stage) manageBtn.getScene().getWindow();
+=======
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Manage Inventory Menu");
+	public void settingsMenu(ActionEvent actionEvent) throws IOException {
 
-        root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+		stage = (Stage) settingsBtn.getScene().getWindow();
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+		stage.setTitle("I.M.S. | Settings Menu");
 
-    public void settingsMenu(ActionEvent actionEvent) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("settings.fxml"));
 
+<<<<<<< HEAD
 
         //console output added for QA
         System.out.println("Settings Menu Button Clicked");
 
         stage=(Stage) settingsBtn.getScene().getWindow();
+=======
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+>>>>>>> origin/master
 
-        stage.setTitle("I.M.S. | Settings Menu");
+	// TODO: create and host Bootstrap site containing help documentation for
+	// IMS
+	public void helpURL(ActionEvent actionEvent) {
 
-        root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+		try {
+			Desktop.getDesktop().browse(new URI("http://lmgtfy.com/?q=help"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (URISyntaxException e1) {
+			e1.printStackTrace();
+		}
+	}
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+	public void manageUsersMenu(ActionEvent actionEvent) throws IOException {
+		stage = (Stage) manageUsersBtn.getScene().getWindow();
 
-    //TODO: create and host Bootstrap site containing help documentation for IMS
-    public void helpURL(ActionEvent actionEvent) {
+		stage.setTitle("I.M.S. | Confirm Administration Level");
 
+<<<<<<< HEAD
         //console output added for QA
         System.out.println("Help Button Clicked");
 
@@ -174,11 +229,22 @@ public class settingsMenuController {
             e1.printStackTrace();
         }
     }
+=======
+		root = FXMLLoader.load(getClass().getResource("toManageUser.fxml"));
+>>>>>>> origin/master
 
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 
+	}
 
+	public void showVersionNumber(ActionEvent actionEvent) {
+		settingsPromptLbl.setText("IMS Version 1.0");
 
+	}
 
+<<<<<<< HEAD
     public void manageUsersMenu(ActionEvent actionEvent) throws IOException {
 
         //TODO: add admin boolean logic
@@ -209,4 +275,7 @@ public class settingsMenuController {
 
 
     //TODO: INSERT REMAINING METHODS HERE
+=======
+	// TODO: INSERT REMAINING METHODS HERE
+>>>>>>> origin/master
 }

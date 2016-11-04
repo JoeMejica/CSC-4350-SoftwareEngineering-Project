@@ -21,11 +21,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
+<<<<<<< HEAD
                 <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Button>
+=======
+                <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#mainMenu" prefHeight="45.0" prefWidth="100.0" text="Main Menu" wrapText="true" />
+>>>>>>> origin/master
                 <Button fx:id="outgoingBtn" mnemonicParsing="false" onAction="#outgoingMenu" prefHeight="45.0" prefWidth="100.0" text="Outgoing" GridPane.rowIndex="3" />
                 <Button fx:id="incomingBtn" mnemonicParsing="false" onAction="#incomingMenu" prefHeight="45.0" prefWidth="100.0" text="Incoming" GridPane.rowIndex="2" />
                 <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageMenu" prefHeight="45.0" prefWidth="100.0" text="Manage Inventory" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
@@ -37,6 +41,7 @@
             </padding>
         </GridPane>
     </left>
+<<<<<<< HEAD
     <right>
         <TableView fx:id="outgoingDB" prefHeight="400.0" prefWidth="246.0" BorderPane.alignment="CENTER">
             <columns>
@@ -79,4 +84,35 @@
             </children>
         </GridPane>
     </center>
+=======
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="createDepartureBtn" mnemonicParsing="false" onAction="#createDeparture" prefHeight="75.0" prefWidth="200.0" text="Create New Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="updateDepartureBtn" mnemonicParsing="false" onAction="#updateDeparture" prefHeight="75.0" prefWidth="200.0" text="Update Departure Status" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="removeDepartureBtn" mnemonicParsing="false" onAction="#removeDeparture" prefHeight="75.0" prefWidth="200.0" text="Remove Departure Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+>>>>>>> origin/master
 </BorderPane>

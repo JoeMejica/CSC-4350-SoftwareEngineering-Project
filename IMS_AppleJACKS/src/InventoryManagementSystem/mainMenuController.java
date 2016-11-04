@@ -20,7 +20,6 @@ public class mainMenuController {
     @FXML
     public Button mainMenuBtn;
 
-
     @FXML
     public Button outgoingBtn;
 
@@ -123,7 +122,7 @@ public class mainMenuController {
         stage.show();
 
     }
-
+    
     public void manageMenu(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA

@@ -20,7 +20,6 @@ public class outgoingMenuController {
     @FXML
     public Button mainMenuBtn;
 
-
     @FXML
     public Button outgoingBtn;
 
@@ -32,6 +31,7 @@ public class outgoingMenuController {
 
     @FXML
     public Button settingsBtn;
+<<<<<<< HEAD
 
     @FXML
     public TableView outgoingDB;
@@ -44,12 +44,22 @@ public class outgoingMenuController {
 
 
 
+=======
+    
+    @FXML
+    public Button createDepartureBtn;
+    
+    @FXML
+    public Button updateDepartureBtn;
+    
+    @FXML
+    public Button removeDepartureBtn;
+>>>>>>> origin/master
 
     //STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
     Stage stage;
     Parent root;
-
 
     public void signOut(ActionEvent actionEvent) throws IOException {
 
@@ -83,8 +93,6 @@ public class outgoingMenuController {
         stage.setScene(scene);
         stage.show();
     }
-
-
 
     public void outgoingMenu(ActionEvent actionEvent) throws IOException {
 
@@ -151,7 +159,36 @@ public class outgoingMenuController {
         stage.setScene(scene);
         stage.show();
     }
+    
+    public void createDeparture(ActionEvent actionEvent) throws IOException {
 
+        stage=(Stage) createDepartureBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Create Departure Event Menu");
+
+        root = FXMLLoader.load(getClass().getResource("createDepartureEvent.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void updateDeparture(ActionEvent actionEvent) throws IOException {
+
+        stage=(Stage) updateDepartureBtn.getScene().getWindow();
+
+        stage.setTitle("I.M.S. | Update Departure Event Menu");
+
+        root = FXMLLoader.load(getClass().getResource("updateDepartureEvent.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void removeDeparture(ActionEvent actionEvent) throws IOException {
+
+<<<<<<< HEAD
     public void createDepartureEvent(ActionEvent actionEvent) throws IOException {
 
         //console output added for QA
@@ -183,7 +220,18 @@ public class outgoingMenuController {
         stage.setScene(scene);
         stage.show();
     }
+=======
+        stage=(Stage) removeDepartureBtn.getScene().getWindow();
 
+        stage.setTitle("I.M.S. | Remove Departure Event Menu");
+
+        root = FXMLLoader.load(getClass().getResource("removeDepartureEvent.fxml"));
+>>>>>>> origin/master
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     //TODO: INSERT REMAINING METHODS HERE
 }
