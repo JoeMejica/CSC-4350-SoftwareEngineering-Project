@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import Model.DepartureEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,95 +18,103 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class usersController implements Initializable {
+public class RemoveDepartureEventController implements Initializable {
 
 	@FXML
-	private TableView<UserTable> table;
+	private TableView<DepartureItemTable> table;
 
 	@FXML
-	private TableColumn<UserTable, String> firstNameCol;
+	private TableColumn<DepartureItemTable, String> itemNameCol;
 
 	@FXML
-	private TableColumn<UserTable, String> middleInitCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> lastNameCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> phoneCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> emailCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> contactNameCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> contactEmailCol;
+	private TableColumn<DepartureItemTable, String> barcodeCol;
 
 	@FXML
-	private TableColumn<UserTable, String> contactNumCol;
+	private TableColumn<DepartureItemTable, Boolean> shippedCol;
 
 	@FXML
-	public Button signOutIMS;
+	private Button signOutIMS;
 
 	@FXML
-	public Button mainMenuBtn;
+	private Button mainMenuBtn;
 
 	@FXML
-	public Button outgoingBtn;
+	private Button outgoingBtn;
 
 	@FXML
-	public Button incomingBtn;
+	private Button incomingBtn;
 
 	@FXML
-	public Button manageBtn;
+	private Button manageBtn;
 
 	@FXML
-	public Button settingsBtn;
+	private Button settingsBtn;
+
+	@FXML
+	private Button removeBtn;
+
+	@FXML
+	private TextField barcode;
+
+	@FXML
+	private Label status;
 
 	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<UserTable> list = FXCollections.observableArrayList();
+	ObservableList<DepartureItemTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		firstNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("firstName"));
-		middleInitCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("middleInit"));
-		lastNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("lastName"));
-		phoneCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("phoneNumber"));
-		emailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("email"));
-		contactNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactName"));
-		contactEmailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactEmail"));
-		contactNumCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactNumber"));
-		loadUsers();
+	public void initialize(URL location, ResourceBundle resources) {
+		itemNameCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, String>("barcode"));
+		shippedCol.setCellValueFactory(new PropertyValueFactory<DepartureItemTable, Boolean>("shipped"));
+		loadShippedItems();
 	}
-	
-	public void loadUsers() {
+
+	public void removeEvent(ActionEvent event) throws SQLException {
+		if (departEvent.isDepartItem(barcode.getText())) {
+			String query = "DELETE FROM departures WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode.getText());
+			ps.executeUpdate();
+			query = "UPDATE items SET reserved = ? WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, false);
+			ps.setString(2, barcode.getText());
+			ps.executeUpdate();
+			status.setText("Departure event successfully removed!");
+			list.removeAll(list);
+			loadShippedItems();
+			barcode.clear();
+		} else {
+			status.setText("Barcode not found!");
+		}
+	}
+
+	public void loadShippedItems() {
+		departEvent.createDepartureTable();
 		try {
-			String query = "SELECT * FROM employee";
-			PreparedStatement ps = conn.prepareStatement(query);
+			String query = "SELECT * FROM departures WHERE shipped = ?";
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, true);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new UserTable(rs.getString("firstname"),
-						rs.getString("middleinitial"),
-						rs.getString("lastname"),
-						rs.getString("phonenumber"),
-						rs.getString("email"),
-						rs.getString("contactname"),
-						rs.getString("contactnumber"),
-						rs.getString("contactemail")));
+				list.add(new DepartureItemTable(rs.getString("itemname"), rs.getString("barcode"),
+						rs.getBoolean("reserved"), rs.getBoolean("pending"), rs.getBoolean("ready"),
+						rs.getBoolean("shipped")));
 				table.setItems(list);
 			}
 			ps.close();
@@ -194,7 +203,5 @@ public class usersController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	// TODO: INSERT REMAINING METHODS HERE
 
 }

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import Model.DepartureEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,95 +18,134 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class usersController implements Initializable {
+public class CreateDepartureEventController implements Initializable {
 
 	@FXML
-	private TableView<UserTable> table;
+	private TableView<ItemTable> table;
 
 	@FXML
-	private TableColumn<UserTable, String> firstNameCol;
+	private TableColumn<ItemTable, String> itemNameCol;
 
 	@FXML
-	private TableColumn<UserTable, String> middleInitCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> lastNameCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> phoneCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> emailCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> contactNameCol;
-	
-	@FXML
-	private TableColumn<UserTable, String> contactEmailCol;
+	private TableColumn<ItemTable, String> barcodeCol;
 
 	@FXML
-	private TableColumn<UserTable, String> contactNumCol;
+	private TableColumn<ItemTable, Double> weightCol;
 
 	@FXML
-	public Button signOutIMS;
+	private TableColumn<ItemTable, Boolean> reserveCol;
 
 	@FXML
-	public Button mainMenuBtn;
+	private TableColumn<ItemTable, String> expirationCol;
 
 	@FXML
-	public Button outgoingBtn;
+	private Button signOutIMS;
 
 	@FXML
-	public Button incomingBtn;
+	private Button mainMenuBtn;
 
 	@FXML
-	public Button manageBtn;
+	private Button outgoingBtn;
 
 	@FXML
-	public Button settingsBtn;
+	private Button incomingBtn;
+
+	@FXML
+	private Button manageBtn;
+
+	@FXML
+	private Button settingsBtn;
+
+	@FXML
+	private Button createBtn;
+
+	@FXML
+	private TextField barcode;
+
+	@FXML
+	private Label status;
+
+	@FXML
+	private Label txtFieldLbl;
+
+	@FXML
+	private Label tableName;
 
 	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<UserTable> list = FXCollections.observableArrayList();
+	ObservableList<ItemTable> list = FXCollections.observableArrayList();
 	DepartureEvent departEvent = new DepartureEvent();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		firstNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("firstName"));
-		middleInitCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("middleInit"));
-		lastNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("lastName"));
-		phoneCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("phoneNumber"));
-		emailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("email"));
-		contactNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactName"));
-		contactEmailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactEmail"));
-		contactNumCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactNumber"));
-		loadUsers();
+	public void initialize(URL location, ResourceBundle resources) {
+		itemNameCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("barcode"));
+		weightCol.setCellValueFactory(new PropertyValueFactory<ItemTable, Double>("weight"));
+		reserveCol.setCellValueFactory(new PropertyValueFactory<ItemTable, Boolean>("reserved"));
+		expirationCol.setCellValueFactory(new PropertyValueFactory<ItemTable, String>("expiration"));
+		loadItems();
 	}
-	
-	public void loadUsers() {
+
+	public void createEvent(ActionEvent event) throws SQLException {
+		if (departEvent.isBarcode(barcode.getText())) {
+			departEvent.createDepartureTable();
+			String query = "SELECT * FROM departures WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode.getText());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				status.setText("Departure event exists!");
+			} else {
+				String name = null;
+				query = "SELECT * FROM items WHERE barcode = ?";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, barcode.getText());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					name = rs.getString("itemname");
+				}
+				departEvent.createDepartureEvent(name, barcode.getText());
+				status.setText("Departure event successfully created!");
+				list.removeAll(list);
+				loadItems();
+				barcode.clear();
+			}
+		} else {
+			status.setText("Barcode not found!");
+		}
+	}
+
+	public void createItemTable() {
+		String query = "CREATE  TABLE  IF NOT EXISTS \"main\".\"items\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"itemname\" TEXT, \"barcode\" TEXT UNIQUE , \"weight\" DOUBLE, \"expiration\" DATETIME, \"reserved\" BOOL DEFAULT 0)";
 		try {
-			String query = "SELECT * FROM employee";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadItems() {
+		createItemTable();
+		try {
+			String query = "SELECT * FROM items WHERE barcode IS NOT NULL";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new UserTable(rs.getString("firstname"),
-						rs.getString("middleinitial"),
-						rs.getString("lastname"),
-						rs.getString("phonenumber"),
-						rs.getString("email"),
-						rs.getString("contactname"),
-						rs.getString("contactnumber"),
-						rs.getString("contactemail")));
+				list.add(new ItemTable(rs.getString("itemname"), rs.getString("barcode"), rs.getDouble("weight"),
+						rs.getBoolean("reserved"), rs.getString("expiration")));
 				table.setItems(list);
 			}
 			ps.close();
@@ -194,7 +234,5 @@ public class usersController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	// TODO: INSERT REMAINING METHODS HERE
 
 }

@@ -1,5 +1,13 @@
 package InventoryManagementSystem;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -11,101 +19,88 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
+
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
 
-public class usersController implements Initializable {
-
+public class ViewInventoryController implements Initializable {
 	@FXML
-	private TableView<UserTable> table;
-
+	private Button mainMenuBtn;
 	@FXML
-	private TableColumn<UserTable, String> firstNameCol;
-
+	private Button outgoingBtn;
 	@FXML
-	private TableColumn<UserTable, String> middleInitCol;
-	
+	private Button incomingBtn;
 	@FXML
-	private TableColumn<UserTable, String> lastNameCol;
-	
+	private Button manageBtn;
 	@FXML
-	private TableColumn<UserTable, String> phoneCol;
-	
+	private Button settingsBtn;
 	@FXML
-	private TableColumn<UserTable, String> emailCol;
-	
+	private Button signOutIMS;
 	@FXML
-	private TableColumn<UserTable, String> contactNameCol;
-	
+	private TableView<ViewInventoryTable> table;
 	@FXML
-	private TableColumn<UserTable, String> contactEmailCol;
-
+	private TableColumn<ViewInventoryTable, String> aisleCol;
 	@FXML
-	private TableColumn<UserTable, String> contactNumCol;
-
+	private TableColumn<ViewInventoryTable, String> nameCol;
 	@FXML
-	public Button signOutIMS;
-
+	private TableColumn<ViewInventoryTable, String> barcodeCol;
 	@FXML
-	public Button mainMenuBtn;
-
+	private TableColumn<ViewInventoryTable, Double> weightCol;
 	@FXML
-	public Button outgoingBtn;
-
+	private TableColumn<ViewInventoryTable, String> expirationCol;
 	@FXML
-	public Button incomingBtn;
-
+	private TableColumn<ViewInventoryTable, String> sectionCol;
 	@FXML
-	public Button manageBtn;
-
+	private TableColumn<ViewInventoryTable, String> numberCol;
 	@FXML
-	public Button settingsBtn;
-
-	// STAGE AND BUTTON NAVIGATION VARIABLES AND FUNCTIONS:
+	private Label aisleLbl;
 
 	Stage stage;
 	Parent root;
 	Connection conn = SQLiteConnection.Connector();
-	ObservableList<UserTable> list = FXCollections.observableArrayList();
-	DepartureEvent departEvent = new DepartureEvent();
+	ObservableList<ViewInventoryTable> list = FXCollections.observableArrayList();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	String viewAisle = null;
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		firstNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("firstName"));
-		middleInitCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("middleInit"));
-		lastNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("lastName"));
-		phoneCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("phoneNumber"));
-		emailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("email"));
-		contactNameCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactName"));
-		contactEmailCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactEmail"));
-		contactNumCol.setCellValueFactory(new PropertyValueFactory<UserTable, String>("contactNumber"));
-		loadUsers();
+	public void initialize(URL location, ResourceBundle resources) {
+		aisleCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("aisle"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("itemName"));
+		barcodeCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("barcode"));
+		weightCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, Double>("weight"));
+		expirationCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("expiration"));
+		sectionCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("section"));
+		numberCol.setCellValueFactory(new PropertyValueFactory<ViewInventoryTable, String>("number"));
 	}
-	
-	public void loadUsers() {
+
+	public void initAisle(String aisle) {
+		aisleLbl.setText(aisle);
+		viewAisle = aisleLbl.getText();
+		aisleLbl.setText("Aisle " + aisle);
+		loadAisle(viewAisle);
+	}
+
+	public void loadAisle(String aisle) {
 		try {
-			String query = "SELECT * FROM employee";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
+			String query = "SELECT * FROM items WHERE aisle = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, aisle);
+			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new UserTable(rs.getString("firstname"),
-						rs.getString("middleinitial"),
-						rs.getString("lastname"),
-						rs.getString("phonenumber"),
-						rs.getString("email"),
-						rs.getString("contactname"),
-						rs.getString("contactnumber"),
-						rs.getString("contactemail")));
+				char aisleChar = rs.getString("aisle").charAt(0);
+				String aisleString = String.valueOf(aisleChar);
+				int i = Integer.parseInt(rs.getString("itemnumber"));
+				String number = String.valueOf(i);
+				list.add(new ViewInventoryTable(aisleString,
+						rs.getString("itemname"),
+						rs.getString("barcode"),
+						rs.getDouble("weight"),
+						rs.getString("expiration"),
+						rs.getString("section"),
+						number));
 				table.setItems(list);
 			}
 			ps.close();
@@ -194,7 +189,5 @@ public class usersController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	// TODO: INSERT REMAINING METHODS HERE
 
 }

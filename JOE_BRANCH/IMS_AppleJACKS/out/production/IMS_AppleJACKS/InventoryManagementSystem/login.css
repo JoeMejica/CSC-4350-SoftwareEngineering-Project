@@ -1,0 +1,19 @@
+.root{
+    -fx-background-image: url("http://shushi168.com/data/out/255/37557439-white-background-wallpaper.png");
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+}
+
+
+.label {
+    -fx-font-size:20;
+    -fx-font-weight: bold;
+
+
+}
+
+.button {
+    -fx-text-fill: black;
+
+}
