@@ -2,7 +2,6 @@
     -fx-background-image: url("loginbg.png");
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-size: 12px;
 
 }
 
@@ -14,13 +13,14 @@
 
 .label {
 	-fx-text-alignment: center;
-    -fx-font-size: 14px;
+
     -fx-font-weight: bold;
 }
 
 .button {
     -fx-background-color: #FFD034;
-	-fx-text-fill: white;
+	-fx-text-fill: black;
 	-fx-font-weight: bold;
 	-fx-text-alignment: center;
+
 }

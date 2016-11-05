@@ -1,13 +1,13 @@
 .root{
 	-fx-background-image: url("loginbg.png");
     -fx-text-fill: #F7B733;
-    -fx-font-size: 12px;
+
     -fx-font-weight: bold;
 }
 
 .label{
 	-fx-text-fill: black;
-	-fx-font-size: 20px;
+
 	-fx-font-weight: bold;
 }
 
