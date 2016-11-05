@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="705d85a4-b52d-4a7e-aa60-6f4302c4de9a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../IMS_AppleJACKS/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../IMS_AppleJACKS/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/ant.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/copyright/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/description.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/gradle.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/IMS_devBuild.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/src/sample/Controller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/src/sample/Main.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../IMS_devBuild/src/sample/sample.fxml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../IMS_devBuild/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../IMS_devBuild/.idea/workspace.xml" />
     </list>
     <ignored path="IMS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -268,7 +281,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="24" y="22" width="1256" height="722" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
