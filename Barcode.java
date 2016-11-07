@@ -9,11 +9,13 @@ import InventoryManagementSystem.SQLiteConnection;
 
 public class Barcode {
 	private char AisleLetter;
-	private String sectionNumber;
-	private String ItemNumber;
-	private Connection conn = SQLiteConnection.Connector();
+	private int sectionNumber;
+	private int ItemNumber;
+	private Connection conn;
+	private PreparedStatement ps = null;
+	private ResultSet rs = null;
 
-	public Barcode(char AisleLetter, String sectionNumber, String ItemNumber) {
+	public Barcode(char AisleLetter, int sectionNumber, int ItemNumber) {
 		this.AisleLetter = AisleLetter;
 		this.sectionNumber = sectionNumber;
 		this.ItemNumber = ItemNumber;
@@ -21,16 +23,15 @@ public class Barcode {
 
 	public Barcode() {
 	}
-	
-	public boolean checkBarcode(String barcode) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM items WHERE barcode = ?";
+
+	public boolean isItem(String id) {
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, barcode);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM items WHERE id = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
 				return true;
 			} else {
 				return false;
@@ -38,8 +39,98 @@ public class Barcode {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			pstmt.close();
-			rset.close();
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+
+	public boolean hasBarcode(String id) {
+		try {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM items WHERE id = ? AND barcode IS NOT NULL";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+
+	public boolean isBarcode(String barcode) {
+		try {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM items WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
@@ -51,39 +142,24 @@ public class Barcode {
 		return AisleLetter;
 	}
 
-	public String getSectionNumber() {
+	public int getSectionNumber() {
 		return sectionNumber;
 	}
 
-	public int getSectionNumberInt() {
-		return Integer.parseInt(sectionNumber);
-	}
-
-	public String getItemNumber() {
+	public int getItemNumber() {
 		return ItemNumber;
-	}
-
-	public int getItemNumberInt() {
-		return Integer.parseInt(ItemNumber);
 	}
 
 	public void setAisleLetter(char aisle) {
 		AisleLetter = aisle;
 	}
 
-	public void setSectionNumber(String section) {
+	public void setSectionNumber(int section) {
 		sectionNumber = section;
 	}
 
-	public void setItemNumber(String number) {
+	public void setItemNumber(int number) {
 		ItemNumber = number;
 	}
 
-	public boolean equals(Barcode barcode) {
-		if (this.AisleLetter == barcode.getAisleLetter() && this.getSectionNumber().equals(barcode.getSectionNumber())
-				&& this.getItemNumber().equals(barcode.getItemNumber())) {
-			return true;
-		} else
-			return false;
-	}
 }

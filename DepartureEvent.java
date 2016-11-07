@@ -8,14 +8,15 @@ import java.sql.SQLException;
 import InventoryManagementSystem.SQLiteConnection;
 
 public class DepartureEvent {
-	Connection conn = SQLiteConnection.Connector();
+	private Connection conn;
 	private boolean reserved;
 	private boolean pending;
 	private boolean ready;
 	private boolean shipped;
 	private String itemName;
-//	private String barcode;
 	private DepartureEvent event;
+	private PreparedStatement ps = null;
+	private ResultSet rs = null;
 
 	public DepartureEvent(String itemName) {
 		this.itemName = itemName;
@@ -24,18 +25,9 @@ public class DepartureEvent {
 		ready = false;
 		shipped = false;
 	}
-	
-	public DepartureEvent(){
+
+	public DepartureEvent() {
 	}
-
-//	public DepartureEvent() {
-//		conn = SQLiteConnection.Connector();
-//		if (conn == null) {
-//			System.out.println("Connection not successful");
-//			System.exit(1);
-//		}
-//	}
-
 
 	public String getItemName() {
 		return itemName;
@@ -56,7 +48,7 @@ public class DepartureEvent {
 	public boolean getShipped() {
 		return shipped;
 	}
-	
+
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
@@ -78,62 +70,121 @@ public class DepartureEvent {
 	}
 
 	public void pendingEvent(String barcode) {
-		event = new DepartureEvent(barcode);
-		String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			conn = SQLiteConnection.Connector();
+			event = new DepartureEvent(barcode);
+			String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
+			ps = conn.prepareStatement(query);
 			event.setPending(true);
-			preparedStmt.setBoolean(1, event.getPending());
-			preparedStmt.setBoolean(2, event.getReady());
-			preparedStmt.setBoolean(3, event.getShipped());
-			preparedStmt.setString(4, barcode);
-			preparedStmt.executeUpdate();
+			ps.setBoolean(1, event.getPending());
+			ps.setBoolean(2, event.getReady());
+			ps.setBoolean(3, event.getShipped());
+			ps.setString(4, barcode);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public void readyEvent(String barcode) {
-		event = new DepartureEvent(barcode);
-		String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			conn = SQLiteConnection.Connector();
+			event = new DepartureEvent(barcode);
+			String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
+			ps = conn.prepareStatement(query);
 			event.setReady(true);
-			preparedStmt.setBoolean(1, event.getPending());
-			preparedStmt.setBoolean(2, event.getReady());
-			preparedStmt.setBoolean(3, event.getShipped());
-			preparedStmt.setString(4, barcode);
-			preparedStmt.executeUpdate();
+			ps.setBoolean(1, event.getPending());
+			ps.setBoolean(2, event.getReady());
+			ps.setBoolean(3, event.getShipped());
+			ps.setString(4, barcode);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public void shippedEvent(String barcode) {
-		event = new DepartureEvent(barcode);
-		String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			conn = SQLiteConnection.Connector();
+			event = new DepartureEvent(barcode);
+			String query = "UPDATE \"main\".\"departures\" SET \"pending\" = ?1, \"ready\" = ?2, \"shipped\" = ?3 WHERE  \"barcode\" = ?4";
+			ps = conn.prepareStatement(query);
 			event.setShipped(true);
-			preparedStmt.setBoolean(1, event.getPending());
-			preparedStmt.setBoolean(2, event.getReady());
-			preparedStmt.setBoolean(3, event.getShipped());
-			preparedStmt.setString(4, barcode);
-			preparedStmt.executeUpdate();
+			ps.setBoolean(1, event.getPending());
+			ps.setBoolean(2, event.getReady());
+			ps.setBoolean(3, event.getShipped());
+			ps.setString(4, barcode);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
-	public boolean isBarcode(String barcode) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM items WHERE barcode = ?";
+	public boolean isDepartItem(String barcode) {
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, barcode);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM departures WHERE barcode = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode);
+			rs = ps.executeQuery();
+			if (rs.next()) {
 				return true;
 			} else {
 				return false;
@@ -141,78 +192,132 @@ public class DepartureEvent {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			pstmt.close();
-			rset.close();
-		}
-	}
-
-	public boolean isDepartItem(String barcode) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM departures WHERE barcode = ?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, barcode);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
-				return true;
-			} else {
-				return false;
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
 			}
-		} catch (Exception e) {
-			return false;
-		} finally {
-			pstmt.close();
-			rset.close();
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public void createDepartureTable() {
-		String query = "CREATE  TABLE  IF NOT EXISTS \"main\".\"departures\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"itemname\" TEXT, \"barcode\" TEXT, \"reserved\" BOOL, \"pending\" BOOL, \"ready\" BOOL, \"shipped\" BOOL)";
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.execute();
+			conn = SQLiteConnection.Connector();
+			String query = "CREATE  TABLE  IF NOT EXISTS \"main\".\"departures\" (\"id\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \"itemname\" TEXT, \"barcode\" TEXT, \"reserved\" BOOL, \"pending\" BOOL, \"ready\" BOOL, \"shipped\" BOOL)";
+			ps = conn.prepareStatement(query);
+			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public void createDepartureEvent(String itemName, String barcode) {
 		try {
 			createDepartureTable();
+			conn = SQLiteConnection.Connector();
 			DepartureEvent outgoingItem = new DepartureEvent(itemName);
 			String query = "INSERT INTO \"main\".\"departures\" (\"itemname\",\"barcode\",\"reserved\",\"pending\",\"ready\",\"shipped\") VALUES (?1,?2,?3,?4,?5,?6)";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, outgoingItem.getItemName());
-			preparedStmt.setString(2, barcode);
-			preparedStmt.setBoolean(3, outgoingItem.getReserved());
-			preparedStmt.setBoolean(4, outgoingItem.getPending());
-			preparedStmt.setBoolean(5, outgoingItem.getReady());
-			preparedStmt.setBoolean(6, outgoingItem.getShipped());
-			preparedStmt.executeUpdate();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, outgoingItem.getItemName());
+			ps.setString(2, barcode);
+			ps.setBoolean(3, outgoingItem.getReserved());
+			ps.setBoolean(4, outgoingItem.getPending());
+			ps.setBoolean(5, outgoingItem.getReady());
+			ps.setBoolean(6, outgoingItem.getShipped());
+			ps.executeUpdate();
 			query = "UPDATE \"main\".\"items\" SET \"reserved\" = ?1 WHERE  \"barcode\" = ?2";
-			preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setBoolean(1, outgoingItem.getReserved());
-			preparedStmt.setString(2, barcode);
-			preparedStmt.executeUpdate();
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, outgoingItem.getReserved());
+			ps.setString(2, barcode);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public void removeDepartureItem(String barcode) {
 		try {
+			conn = SQLiteConnection.Connector();
 			String query = "DELETE FROM departures WHERE barcode=?";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, barcode);
-			preparedStmt.executeUpdate();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, barcode);
+			ps.executeUpdate();
 			String query2 = "DELETE FROM items WHERE barcode=?";
-			PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
-			preparedStmt2.setString(1, barcode);
-			preparedStmt2.executeUpdate();
-			conn.close();
+			ps = conn.prepareStatement(query2);
+			ps.setString(1, barcode);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 }

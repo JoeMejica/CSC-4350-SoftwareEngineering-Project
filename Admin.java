@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import InventoryManagementSystem.SQLiteConnection;
 
 public class Admin extends Employee {
-	Connection conn = SQLiteConnection.Connector();
+	private Connection conn;
+	private PreparedStatement ps = null;
 	public Admin(String firstName, String middleInitial, String lastName, String username, String PhoneNumber,
 			String Email, String emergencyContactName, String emergencyNumber, String emergencyEmail) {
 		super();
@@ -23,7 +24,6 @@ public class Admin extends Employee {
 		this.password = employee.password;
 		this.emergencyContact = employee.emergencyContact;
 		this.contactInformation = employee.contactInformation;
-//		removeEmployee(employee);
 	}
 
 	public Employee addEmployee(String firstName, String middleInitial, String lastName, String username,
@@ -35,24 +35,32 @@ public class Admin extends Employee {
 
 	public void removeEmployee(String firstName, String lastName) {
 		try {
+			conn = SQLiteConnection.Connector();
 			String query = "DELETE FROM employee WHERE firstname=? AND lastname=?";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, firstName);
-			preparedStmt.setString(2, lastName);
-			preparedStmt.executeUpdate();
-			conn.close();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, firstName);
+			ps.setString(2, lastName);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
-//	public Employee modifyEmployee(Employee employee) {
-//		// requires user input via gui?
-//	}
-//
 //	public ArrivalEvent modifyArrivalEvent() {
 //
 //	}
 
-	// scheduleCycleCount()
 }

@@ -1,13 +1,22 @@
 package Model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import InventoryManagementSystem.SQLiteConnection;
 
 public class ArrivalEvent {
 
   private String trackingNumber;
     private Calendar expectedArrDate;
     private boolean statPending,statShipped,statArrived;
+    private Connection conn;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
     
     public ArrivalEvent(){
         trackingNumber = null;
@@ -24,6 +33,136 @@ public class ArrivalEvent {
        statShipped = false;
        statArrived = false;
        
+    }
+    public boolean isIncomingItem(String id) {
+		try {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM incoming WHERE id = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+    
+    public void arriveEvent(String id) {
+		try {
+			conn = SQLiteConnection.Connector();
+			String query = "UPDATE incoming SET arrived = ? WHERE id = ?";
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, true);
+			ps.setString(2, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+    
+    public void addEvent(String id) {
+ 		try {
+ 			conn = SQLiteConnection.Connector();
+ 			String query = "UPDATE incoming SET added = ? WHERE id = ?";
+ 			ps = conn.prepareStatement(query);
+ 			ps.setBoolean(1, true);
+ 			ps.setString(2, id);
+ 			ps.executeUpdate();
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		} finally {
+ 			if (rs != null) {
+ 				try {
+ 					rs.close();
+ 				} catch (SQLException e) {
+ 					/* ignored */}
+ 			}
+ 			if (ps != null) {
+ 				try {
+ 					ps.close();
+ 				} catch (SQLException e) {
+ 					/* ignored */}
+ 			}
+ 			if (conn != null) {
+ 				try {
+ 					conn.close();
+ 				} catch (SQLException e) {
+ 					/* ignored */}
+ 			}
+ 		}
+ 	}
+    
+    public void removeArrived(String id){
+    	try {
+			conn = SQLiteConnection.Connector();
+			String query = "DELETE FROM incoming WHERE id = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
     }
     
     public void setTrackingNumber(String x){

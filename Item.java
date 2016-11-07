@@ -14,7 +14,7 @@ public class Item {
 	private int itemNumber;
 	private String expirationDate;// if null there is no expiration date
 	private boolean reserved;
-	private Connection conn = SQLiteConnection.Connector();
+	private Connection conn;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
@@ -24,7 +24,7 @@ public class Item {
 		itemWeight = weight;
 		this.expirationDate = expirationDate;
 		itemName = name;
-		itemNumber = itemBarcode.getItemNumberInt();
+		itemNumber = itemBarcode.getItemNumber();
 	}
 
 	public Item(double weight, Barcode itemBarcode) {
@@ -37,14 +37,13 @@ public class Item {
 	}
 
 	public boolean isItem(String itemName) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM items WHERE itemname = ? AND barcode IS NULL";
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, itemName);
-			rset = pstmt.executeQuery();
-			if (rset.next()) {
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM items WHERE itemname = ? AND barcode IS NULL";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, itemName);
+			rs = ps.executeQuery();
+			if (rs.next()) {
 				return true;
 			} else {
 				return false;
@@ -52,26 +51,68 @@ public class Item {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			pstmt.close();
-			rset.close();
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
-	public void removeDups(String itemName) {
+	public void removeDups(String itemName, Double weight) {
 		try {
-			String query = "SELECT * FROM items WHERE itemname = ?";
+			int check = 0;
+			String query = "SELECT * FROM items WHERE itemname = ? AND weight = ?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, itemName);
+			ps.setDouble(2, weight);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				int dup = rs.getInt("id");
-				query = "UPDATE items SET barcode = NULL WHERE id = ?";
+			while (rs.next()) {
+				check++;
+			}
+			check -= check;
+			for(int i = 0; i==check;i++ ){
+				query = "UPDATE items SET barcode = NULL WHERE itemname = ? AND weight = ?";
 				ps = conn.prepareStatement(query);
-				ps.setInt(1, dup);
+				ps.setString(1, itemName);
+				ps.setDouble(2, weight);
 				ps.executeUpdate();
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 

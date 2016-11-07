@@ -10,7 +10,9 @@ import InventoryManagementSystem.SQLiteConnection;
 public class Aisle {
 	private Section sections[] = new Section[20];
 	private boolean sectionsFull[] = new boolean[20];
-	private Connection conn = SQLiteConnection.Connector();
+	private Connection conn;
+	private PreparedStatement ps = null;
+	private ResultSet rs = null;
 
 	public Aisle() {
 		for (int i = 0; i < 20; i++) {
@@ -19,15 +21,14 @@ public class Aisle {
 	}
 
 	public boolean checkAisleFull(String aisle) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int i = 0;
-		String query = "SELECT * FROM items WHERE aisle = ?";
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, aisle);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
+			int i = 0;
+			conn = SQLiteConnection.Connector();
+			String query = "SELECT * FROM items WHERE aisle = ?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, aisle);
+			rs = ps.executeQuery();
+			while (rs.next()) {
 				i++;
 			}
 			if (i >= 100) {
@@ -38,13 +39,29 @@ public class Aisle {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			pstmt.close();
-			rset.close();
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 
 	public Item removeItem(Barcode barcode) {
-		int sectionNumber = barcode.getSectionNumberInt();
+		int sectionNumber = barcode.getSectionNumber();
 		Item returnItem = sections[sectionNumber].removeItem(barcode);
 		if (returnItem != null && sectionsFull[sectionNumber]) {
 			sectionsFull[sectionNumber] = false;
@@ -53,7 +70,7 @@ public class Aisle {
 	}
 
 	public void addItem(Item newItem) {
-		int sectionNumber = newItem.getBarcode().getSectionNumberInt();
+		int sectionNumber = newItem.getBarcode().getSectionNumber();
 		sections[sectionNumber].addItem(newItem);
 		if (sections[sectionNumber].getNumItems() == 5) {
 			sectionsFull[sectionNumber] = true;
@@ -61,7 +78,7 @@ public class Aisle {
 	}
 
 	public Item findItem(Barcode barcode) {
-		int sectionNumber = barcode.getSectionNumberInt();
+		int sectionNumber = barcode.getSectionNumber();
 		return sections[sectionNumber].findItem(barcode);
 	}
 }

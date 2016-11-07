@@ -2,7 +2,7 @@ package Model;
 
 public class Contact {
 	private static boolean checkEmail(String email) {// checks for valid emails
-		boolean hasAtSymbol = false, hasUsername = false, hasMailServer = false, hasDomain = false;
+		boolean hasAtSymbol = false, hasUsername = false, hasMailServer = false;
 		for (int i = 0; i < email.length(); i++) {
 			if (i == 0 && email.charAt(i) != '@')
 				hasUsername = true;
@@ -11,7 +11,7 @@ public class Contact {
 			} else if (hasAtSymbol && email.charAt(i) == '.' && email.charAt(i - 1) != '@'
 					&& Character.isLetter(email.charAt(i + 1))) {
 				hasMailServer = true;
-				hasDomain = true;
+				
 			}
 
 		}
