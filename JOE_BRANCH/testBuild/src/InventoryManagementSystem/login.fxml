@@ -53,5 +53,13 @@
             <Image url="@Apple%20JACKS%20Logo.png" />
          </image>
       </ImageView>
+      <Button fx:id="exitBtn" layoutX="544.0" layoutY="477.0" mnemonicParsing="false" onAction="#exitProgram" prefHeight="23.0" prefWidth="104.0" text="Exit">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Button>
 	</children>
 </AnchorPane>

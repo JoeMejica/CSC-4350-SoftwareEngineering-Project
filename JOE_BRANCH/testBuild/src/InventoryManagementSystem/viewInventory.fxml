@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.ViewInventoryController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
@@ -148,7 +150,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
+                <TableView fx:id="table" prefHeight="150.0" prefWidth="200.0">
                     <columns>
                         <TableColumn fx:id="aisleCol" prefWidth="39.0" text="Aisle" />
                         <TableColumn fx:id="nameCol" prefWidth="75.0" text="Item" />
@@ -176,8 +178,21 @@
                 <Image url="@Apple%20JACKS%20Logo.png" />
             </image>
             <BorderPane.margin>
-                <Insets right="10.0" top="580.0" />
+                <Insets right="10.0" top="555.0" />
             </BorderPane.margin>
         </ImageView>
     </right>
+   <top>
+      <Button fx:id="backToManageBtn" mnemonicParsing="false" onAction="#backToManageMenu" prefHeight="25.0" prefWidth="100.0" text="Back" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+         <BorderPane.margin>
+            <Insets right="650.0" top="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </top>
 </BorderPane>

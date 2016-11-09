@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.incomingMenuController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
@@ -140,7 +142,23 @@
         </GridPane>
     </left>
     <center>
-        <Button fx:id="barcodeBtn" mnemonicParsing="false" onAction="#barcodeMenu" prefHeight="143.0" prefWidth="203.0" text="Barcode Temporary Location" BorderPane.alignment="CENTER" />
+        <Button fx:id="barcodeBtn" mnemonicParsing="false" onAction="#barcodeMenu" prefHeight="150.0" prefWidth="200.0" text="Barcode Menu" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+         <padding>
+            <Insets left="7.0" />
+         </padding>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@barcode.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <DropShadow />
+         </effect></Button>
     </center>
     <right>
         <ImageView fitHeight="76.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="/InventoryManagementSystem/mainMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagementSystem.BarcodeController">
     <left>
         <GridPane BorderPane.alignment="CENTER">
@@ -148,6 +150,7 @@
                 <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="103.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <TableView fx:id="table" prefHeight="183.0" prefWidth="480.0">
@@ -188,10 +191,10 @@
                                         <Tooltip text="Select aisle &#10;A-B - items weighing greater than 100lbs&#10;C-D - items weighing less than 100lbs&#10;E-F - items with expiration dates&#10;O - overstocked items" />
                                     </tooltip>
                                     <font>
-                                        <Font size="12.0" />
+                                        <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="number" maxWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" promptText="Number 0000" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                <TextField fx:id="number" maxWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Number 0000" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                     <GridPane.margin>
                                         <Insets top="20.0" />
                                     </GridPane.margin></TextField>
@@ -200,7 +203,7 @@
                                         <Tooltip text="Number 0001-9999" />
                                     </tooltip>
                                     <font>
-                                        <Font size="12.0" />
+                                        <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </Label>
                                 <Label fx:id="sectionLbl" text="Section" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
@@ -208,7 +211,7 @@
                                         <Tooltip text="Select section 01-20" />
                                     </tooltip>
                                     <font>
-                                        <Font size="12.0" />
+                                        <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="aisleBox" prefHeight="25.0" prefWidth="75.0" GridPane.halignment="CENTER">
@@ -225,7 +228,7 @@
                         </GridPane>
                         <Label text="Enter item's name" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                             <font>
-                                <Font size="12.0" />
+                                <Font name="Arial Bold" size="15.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets top="6.0" />
@@ -238,16 +241,30 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Button fx:id="createBtn" mnemonicParsing="false" onAction="#createBarcodeEvent" prefHeight="49.0" prefWidth="114.0" text="Create Barcode" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                <Button fx:id="createBtn" mnemonicParsing="false" onAction="#createBarcodeEvent" prefHeight="90.0" prefWidth="150.0" text="Create Barcode" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets top="30.0" />
                     </GridPane.margin>
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
                 </Button>
                 <Label fx:id="status" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                     <GridPane.margin>
                         <Insets top="15.0" />
                     </GridPane.margin>
                 </Label>
+            <Button fx:id="backToIncomingBtn" mnemonicParsing="false" onAction="#backToIncomingMenu" prefHeight="50.0" prefWidth="150.0" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
             </children>
         </GridPane>
     </center>

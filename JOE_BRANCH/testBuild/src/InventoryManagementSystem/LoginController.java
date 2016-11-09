@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import Model.LoginModel;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
-	private LoginModel loginModel = new LoginModel();
+
+	@FXML
+    public Button exitBtn;
+    private LoginModel loginModel = new LoginModel();
 
 	@FXML
 	private Button loginIssueBtn;
@@ -58,5 +62,9 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void exitProgram(ActionEvent actionEvent) {
+		Platform.exit();
 	}
 }

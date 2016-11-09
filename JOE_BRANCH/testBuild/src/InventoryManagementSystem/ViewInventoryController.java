@@ -27,6 +27,8 @@ import javafx.scene.control.TableColumn;
 
 public class ViewInventoryController implements Initializable {
 	@FXML
+	public Button backToManageBtn;
+	@FXML
 	private Button mainMenuBtn;
 	@FXML
 	private Button outgoingBtn;
@@ -219,4 +221,18 @@ public class ViewInventoryController implements Initializable {
 		stage.show();
 	}
 
+	public void backToManageMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) settingsBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Manage Inventory Menu");
+
+		root = FXMLLoader.load(getClass().getResource("manageInventory.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
+
+	}
 }

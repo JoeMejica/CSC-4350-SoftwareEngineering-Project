@@ -31,7 +31,9 @@ import javafx.stage.Stage;
 
 public class BarcodeController implements Initializable {
 
-	ObservableList<String> aisleChoices = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "O");
+	@FXML
+    public Button backToIncomingBtn;
+    ObservableList<String> aisleChoices = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "O");
 	ObservableList<String> sectionChoices = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07",
 			"08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20");
 
@@ -331,4 +333,16 @@ public class BarcodeController implements Initializable {
 		stage.show();
 	}
 
+	public void backToIncomingMenu(ActionEvent actionEvent) throws IOException {
+
+		stage = (Stage) settingsBtn.getScene().getWindow();
+
+		stage.setTitle("I.M.S. | Incoming Shipments Menu");
+
+		root = FXMLLoader.load(getClass().getResource("incoming.fxml"));
+
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 }
