@@ -245,30 +245,31 @@ public class BarcodeController implements Initializable {
 
 	public void sectionGen(String aisle, int section) {
 		try {
-			// System.out.println("Start: "+section);
-			conn = SQLiteConnection.Connector();
-			int count = 0;
-			String query = "SELECT * FROM items WHERE aisle = ? AND section = ?";
-			ps = conn.prepareStatement(query);
-			ps.setString(1, aisle);
-			ps.setInt(2, section);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				count++;
-				// System.out.println(section +": "+count);
-			}
-			if (count >= 5) {
-				// System.out.println("Count >= 5");
-				sectionBox.setValue(section++);
-				sectionGen(aisle, section);
+			if (barcodeEvent.isItem(id.getText())) {
+				// System.out.println("Start: "+section);
+				conn = SQLiteConnection.Connector();
+				int count = 0;
+				String query = "SELECT * FROM items WHERE aisle = ? AND section = ?";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, aisle);
+				ps.setInt(2, section);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					count++;
+					// System.out.println(section +": "+count);
+				}
+				if (count >= 5) {
+					// System.out.println("Count >= 5");
+					sectionBox.setValue(section++);
+					sectionGen(aisle, section);
+				} else {
+					// System.out.println("Count < 5");
+					sectionBox.setValue(section);
+				}
 			} else {
-				// System.out.println("Count < 5");
-				sectionBox.setValue(section);
+				status.setText("ID not found!");
 			}
-
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (rs != null) {

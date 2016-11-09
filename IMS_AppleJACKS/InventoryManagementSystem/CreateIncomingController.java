@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 
@@ -54,25 +55,29 @@ public class CreateIncomingController {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-	public static boolean isNumeric(String str)
-	{
-	    for (char c : str.toCharArray())
-	    {
-	        if (!Character.isDigit(c)) return false;
-	    }
-	    return true;
+	public static boolean isNumeric(String str) {
+		for (char c : str.toCharArray()) {
+			if (!Character.isDigit(c))
+				return false;
+		}
+		return true;
 	}
-	
+
 	public void CreateArrival(ActionEvent event) {
 		try {
+			LocalDate today = LocalDate.now();
 			if (itemField.getText().isEmpty()) {
 				status.setText("Enter item name!");
 			} else if (weight.getText().isEmpty()) {
 				status.setText("Enter weight!");
-			} else if(!(isNumeric(weight.getText()))){
+			} else if (!(isNumeric(weight.getText()))) {
 				status.setText("Incorrect format for weight!");
 			} else if (arrival.getValue() == null) {
 				status.setText("Enter arrival date!");
+			} else if (exp.getValue() != null && exp.getValue().isBefore(today)) {
+				status.setText("Invalid expiration date!");
+			} else if (arrival.getValue().isBefore(today)) {
+				status.setText("Invalid arrival date!");
 			} else {
 				conn = SQLiteConnection.Connector();
 				String query = "INSERT INTO incoming (itemname, weight, expirationdate, arrivaldate, shipped, arrived, added) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -80,7 +85,7 @@ public class CreateIncomingController {
 				ps.setString(1, itemField.getText());
 				int i = Integer.parseInt(weight.getText());
 				ps.setDouble(2, i);
-				if(exp.getValue() == null){
+				if (exp.getValue() == null) {
 					ps.setString(3, null);
 				} else {
 					ps.setString(3, exp.getValue().toString());

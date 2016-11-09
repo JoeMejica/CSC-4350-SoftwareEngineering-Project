@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class ManageInventoryController implements Initializable {
 
-	private ObservableList<String> aisleChoices = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "O");
+	private ObservableList<String> aisleChoices = FXCollections.observableArrayList("All aisles", "A", "B", "C", "D", "E", "F", "O");
 	private ObservableList<String> sectionChoices = FXCollections.observableArrayList("All sections", "01", "02", "03",
 			"04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20");
 
